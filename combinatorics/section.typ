@@ -1,9 +1,6 @@
 // #import "algorithms.typ": algorithms
 #import "../lib.typ": *
 
-// TODO: Agregar triángulo de pascal
-// TODO: Agregar desarreglos
-
 = Combinatorics
 
 == Binomial Coefficients

@@ -1,7 +1,5 @@
 #import "../lib.typ": *
 
-// TODO: Revisar página 'Bit Manipulation' de cp-algorithms y agregar lo que falte: https://cp-algorithms.com/algebra/bit-manipulation.html
-
 = Bit Manipulation
 
 == Bit mask

@@ -2,8 +2,6 @@
 
 #set page(columns: 1)
 
-// TODO: Agregar una sección de utilidades de Python
-
 = Utilities
 
 == Strings
@@ -201,8 +199,6 @@ v.erase(unique(v.begin(), v.end()), v.end());
 
 
 == STL containers
-
-// TODO: Pasar bitset para acá con una mejor explicación de utilidades
 
 === Deques
 A *_deque_* is a dynamic array that can be efficiently manipulated at both ends of the structure.

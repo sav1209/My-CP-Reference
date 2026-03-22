@@ -42,6 +42,5 @@ We increase the value at position $a$ by $x$ and decrease the value at position 
 #show-algorithm(algorithms.dsu_union_by_rank)
 
 
-// TODO: Agregar Fenwick tree (BIT)
 == Segment tree
 #show-algorithm(algorithms.segment-tree)
