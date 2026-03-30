@@ -21,15 +21,15 @@
 // GitHub Octicons for Typst
 #import "@preview/octique:0.1.1": *
 
-#let show-algorithm(algorithm) = {
-  let (title, time, space, description, lang, source-file) = (
-    algorithm.at("title", default: ""),
-    algorithm.at("time", default: ""),
-    algorithm.at("space", default: ""),
-    algorithm.at("description", default: ""),
-    algorithm.at("lang", default: "cpp"),
-    algorithm.source-file,
-  )
+#let code-entry(
+  source-file: "",
+  title: "",
+  time: "",
+  space: "",
+  description: "",
+  lang: "cpp",
+  range: (),
+) = {
 
   block(
     width: 100%,
@@ -85,6 +85,11 @@
       }
     )
   )
+
+  // Bloque de código
+  if range != () {
+    codly(range: range, offset: -range.at(0) + 1)
+  }
   raw(read(source-file), lang: lang, block: true)
 }
 
@@ -113,7 +118,7 @@
       show math.equation: math.bold
       strong(x)
     },
-    number-format: it => text(numbering("1", it), weight: "semibold"),
+    number-format: it => text(numbering("1", it), weight: "bold"),
     breakable: true,
     lang-format: none,
     zebra-fill: palette.base.rgb,

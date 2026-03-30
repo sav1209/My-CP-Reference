@@ -1,3 +1,8 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MAXN = 100000;
+
 int n, t[4*MAXN];
 
 void build(int a[], int v, int tl, int tr) {

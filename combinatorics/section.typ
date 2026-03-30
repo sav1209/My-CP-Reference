@@ -1,4 +1,3 @@
-// #import "algorithms.typ": algorithms
 #import "../lib.typ": *
 
 = Combinatorics

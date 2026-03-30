@@ -1,4 +1,3 @@
-#import "algorithms.typ": algorithms
 #import "../lib.typ": *
 
 = Number Theory
@@ -20,7 +19,17 @@ $
 
 == Sieve of Eratosthenes
 
-#show-algorithm(algorithms.sieve_with_basic_optimizations)
+#code-entry(
+  title: "Sieve with basic optimizations",
+  time: $O(n log log n)$,
+  space: $O(n)$,
+  description: [
+    Find all the prime numbers in $[1, n]$. This code uses the next optimizations:
+    - Sieving till root
+    - Sieving by the odd numbers only
+  ],
+  source-file: "number_theory/sieve_with_basic_optimizations.cpp"
+)
 
 == Euclid’s Algorithm
 The algorithm is based on the formula
@@ -35,7 +44,11 @@ $
 Euclid’s algorithm can also be extended so that it gives integers $x$ and $y$ for which
 $ a x + b y = gcd(a, b) $
 
-#show-algorithm(algorithms.extended_euclid_algorithm)
+#code-entry(
+  title: "Iterative version",
+  time: $O(log min(a, b))$,
+  source-file: "number_theory/extended_euclid_algorithm.cpp"
+)
 
 == Euler’s Theorem
 Euler’s totient function $phi(n)$ gives the number of integers between $1, dots, n$ that are coprime to $n$.

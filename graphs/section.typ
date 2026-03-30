@@ -1,4 +1,3 @@
-#import "algorithms.typ": algorithms
 #import "../lib.typ": *
 
 = Graphs
@@ -15,13 +14,27 @@ Flood fill is an algorithm that identifies and labels the connected component th
         - Non-recursive implementations generally use less memory than recursive ones.
 ]
 
-#show-algorithm(algorithms.recursive-floodfill)
+#code-entry(
+    title: "Example (recursive implementation)",
+    source-file: "graphs/floodfill_recursive.cpp",
+)
 
-#show-algorithm(algorithms.iterative-floodfill)
+#code-entry(
+    title: "Example (iterative implementation)",
+    source-file: "graphs/floodfill_iterative.cpp",
+)
+
 
 == Topological Sort
 
 A topological sort of a directed acyclic graph is a linear ordering of its vertices such that for every directed edge $u -> v$ from vertex $u$ to vertex $v$, $u$ comes before $v$ in the ordering.
 
-#show-algorithm(algorithms.topological-sort-dfs)
-#show-algorithm(algorithms.topological-sort-bfs)
+#code-entry(
+    title: "DFS Version",
+    source-file: "graphs/topological_sort_dfs.cpp",
+)
+
+#code-entry(
+    title: "BFS Version (Kahn's Algorithm)",
+    source-file: "graphs/topological_sort_bfs.cpp",
+)

@@ -1,20 +1,3 @@
-// FUNCIONALIDAD
-// TODO: Agregar archivos de los algoritmos de forma completa con aplicación básica.
-// TODO: Agregar configuración para solo colocar ciertas líneas de un algortimo.
-// TODO: Cada algoritmo debe tener un enlace directo a su ubicación en GitHub para copiar y pegar rápidamente desde la versión digital con QR.
-// CONTENIDO
-// TODO: Agregar el código para reconstruir ciclos con Topological Sort
-// TODO: Agregar sección con formúlas/sucesiones matemáticas útiles
-// TODO: Agregar sección de árboles (bases, LCA)
-// TODO: Agregar sección de DP con aplicaciones básicas
-// TODO: Agregar sección de matemáticas con fórmulas útiles y sección de recurrencias
-// TODO: Revisar página 'Bit Manipulation' de cp-algorithms y agregar lo que falte: https://cp-algorithms.com/algebra/bit-manipulation.html
-// TODO: Agregar Fenwick tree (BIT)
-// TODO: Agregar triángulo de pascal
-// TODO: Agregar desarreglos
-// TODO: Agregar una sección de utilidades de Python
-// TODO: Pasar bitset para acá con una mejor explicación de utilidades
-
 #import "lib.typ": *
 
 // Text font

@@ -1,4 +1,3 @@
-#import "algorithms.typ": algorithms
 #import "../lib.typ": *
 
 = Data structures
@@ -24,23 +23,41 @@ $ sum_(i = a)^A sum_(j = b)^B arr[i][j] = prefix[A][B] - prefix[a - 1][B] - pref
 === Max Subarray Sum
 
 Given an array of integers, find the maximum sum subarray
-#show-algorithm(algorithms.kadane)
-
-
-=== Difference Arrays
-Used to increases all elements in a range $[a, b]$ by $x$.
-
-We increase the value at position $a$ by $x$ and decrease the value at position $b + 1$ by $x$ of the difference array. Each element of the updated array corresponds to the prefix sum array of the updated difference array.
-
-#show-algorithm(algorithms.difference_array)
+#code-entry(
+  title: "Kadane's algorithm",
+  time: $O(n)$,
+  range: (6, 23),
+  source-file: "data_structures/kadane.cpp",
+)
 
 
 == Disjoin Set Union
+#code-entry(
+  title: "Find representative with path compression",
+  time: $O(log n)$,
+  source-file: "data_structures/dsu_size.cpp",
+  range: (11, 15),
+)
 
-#show-algorithm(algorithms.dsu_find_set)
-#show-algorithm(algorithms.dsu_union_by_size)
-#show-algorithm(algorithms.dsu_union_by_rank)
+#code-entry(
+  title: "Union by size",
+  time: $O(alpha(m, n))$,
+  source-file: "data_structures/dsu_size.cpp",
+  range: (17, 33),
+)
+
+#code-entry(
+  title: "Union by rank",
+  time: $O(alpha(m, n))$,
+  source-file: "data_structures/dsu_rank.cpp",
+  range: (17, 34),
+)
 
 
 == Segment tree
-#show-algorithm(algorithms.segment-tree)
+#code-entry(
+  title: "Implementation",
+  source-file: "data_structures/segment-tree.cpp",
+  range: (6, 41),
+  time: [$O(n)$ for building, $O(log n)$ for queries and updates]
+)

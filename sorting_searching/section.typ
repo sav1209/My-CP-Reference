@@ -1,4 +1,3 @@
-#import "algorithms.typ": algorithms
 #import "../lib.typ": *
 
 = Sorting & Searching
@@ -33,6 +32,14 @@ Some uses:
 
 == Binary Search on Monotonic Functions
 
-#show-algorithm(algorithms.last_true)
+#code-entry(
+  title: [Finding The Maximum $x$ Such That $f(x) = "true"$],
+  time: $O(log n)$,
+  source-file: "sorting_searching/last_true.cpp",
+)
 
-#show-algorithm(algorithms.first_true)
+#code-entry(
+    title: [Finding The Minimum $x$ Such That $f(x) = "true"$],
+    time: $O(log n)$,
+    source-file: "sorting_searching/first_true.cpp",
+)
