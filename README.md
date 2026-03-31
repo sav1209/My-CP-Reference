@@ -1,204 +1,170 @@
-# Reference de Programación Competitiva
+# Reference de Programacion Competitiva
 
-Una propuesta moderna y elegante para documentar mis notas de Programación Competitiva.
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/sav1209/My-CP-Reference)
 
-## 🎨 Sobre este Proyecto
+Notas de Programacion Competitiva utilizadas para competencias estilo ICPC generado con Typst.
+Incluye una plantilla visual reutilizable y secciones por tema con codigo.
 
-Este proyecto utiliza **Typst** para crear un documento de referencia visualmente atractivo. El archivo principal (`lib.typ`) proporciona utilidades y funciones personalizadas que facilitan la presentación de código y conceptos algorítmicos.
+## Vision General
 
-### Funcionalidades Principales
+Este repositorio esta centrado en dos archivos principales:
 
-- 📝 **Presentación de código elegante**: Tarjetas personalizadas para cada algoritmo
-- 🎨 **Tema visual cohesivo**: Color palette Catppuccin con gradientes personalizados
-- 🔗 **Enlaces automáticos a GitHub**: Conecta directamente con el código fuente
-- 📐 **Análisis de complejidad**: Campos para mostrar complejidad de tiempo y espacio
-- 📦 **Documentación estructurada**: Secciones organizadas por tema
+- main.typ: punto de entrada del documento, configuracion global de fuentes y secciones.
+- lib.typ: plantilla reutilizable, incluyendo reference y code-entry.
 
-### Paquetes Incluidos en `lib.typ`
+## Caracteristicas Actuales
 
-| Paquete | Versión | Propósito |
-|---------|---------|----------|
-| `catppuccin` | 1.0.0 | Tema visual pastel (colores suavizados) |
-| `theorion` | 0.3.3 | Entornos de teoremas y cajas personalizables |
-| `codly` | 1.3.0 | Presentación de código con numeración y resaltado |
-| `codly-languages` | 0.1.8 | Soporte para múltiples lenguajes de programación |
+- Tarjetas de codigo con code-entry.
+- Integracion con codly para resaltado y configuración de código.
+- Enlaces a GitHub para archivos fuente (configurable global o por tarjeta).
+- Soporte de tema con color o modo monocromatico.
 
-## 📘 Guía de Uso de `code-entry`
+## Dependencias de Typst
 
-### ¿Qué es `code-entry`?
+| Paquete | Version | Uso |
+|---|---|---|
+| catppuccin | 1.0.0 | Tema visual base |
+| theorion | 0.3.3 | Cajas y entornos de apoyo |
+| codly | 1.3.0 | Render de bloques de codigo |
+| codly-languages | 0.1.8 | Lenguajes para codly |
+| zebra | 0.1.0 | Generacion de QR |
 
-`code-entry` es una función personalizada que crea **tarjetas visuales** para presentar fragmentos de código junto con información sobre complejidad algorítmica. Cada tarjeta incluye:
+## Guia para Usar el Proyecto
 
-- Un título descriptivo
-- Información de complejidad de tiempo y espacio
-- Una descripción opcional del algoritmo
-- El código fuente con resaltado de sintaxis
-- Un enlace a GitHub (opcional)
+Las formas mas faciles de usar este proyecto son las siguientes:
 
-### Sintaxis Básica
+### Opcion 1: typst.app
 
-```typst
+1. Descarga este repositorio en tu maquina.
+2. Crea un proyecto en https://typst.app/.
+3. Sube los archivos del repositorio.
+4. Abre main.typ y compila.
+
+### Opcion 2: GitHub Codespaces + Tinymist
+
+Puedes abrir un Codespace con un clic usando el boton "Open in GitHub Codespaces" al inicio de este README.
+
+1. Abre el repositorio en GitHub y crea un Codespace.
+2. En la terminal del Codespace instala Typst (paso principal) con:
+```bash
+curl -fsSL https://install.typst.community/install.sh | sh
+```
+
+3. Verifica la instalacion:
+
+```bash
+typst --version
+```
+
+4. Compila el documento:
+
+```bash
+typst compile main.typ
+```
+
+Repositorio del script de instalacion:
+https://github.com/typst-community/typst-install
+
+5. Instala Tinymist para facilitar la edicion en VS Code/Codespaces.
+
+Tinymist es una herramienta de apoyo (LSP) para Typst: mejora la experiencia de edicion, pero el motor que compila el proyecto es Typst CLI.
+
+
+
+## Guia de code-entry
+
+code-entry crea una tarjeta superior y un bloque de codigo debajo (todos los paramétros son opcionales).
+
+```typ
 #code-entry(
-  title: "Nombre del algoritmo",
-  source-file: "ruta/al/archivo.cpp",
-  time: "O(n log n)",
-  space: "O(n)",
+  source-file: "",
+  title: "",
+  time: "",
+  space: "",
+  description: "",
+  lang: "cpp",
+  github-base: none,
+  range: (),
+  ..args,
 )
 ```
 
-### Parámetros
+### Comportamiento
 
-- **`title`** (string): Nombre descriptivo del algoritmo
-  - Ejemplo: `"Algoritmo de Kadane"`, `"Búsqueda Binaria"`
+- Si alguno de los parámetros se omite, no se coloca en la card.
+- La accent-bar siempre se mantiene.
+- `time` y `space` son independientes.
+- Si se pasa codigo inline por `..args`, tiene prioridad sobre source-file.
+- Si hay `source-file` y existe `github-base` (local o global), se agrega link en el header del bloque de codigo.
+- `range` renderiza únicamente el rango de líneas ingresado (indexado en 1).
 
-- **`source-file`** (string): Ruta relativa al archivo de código
-  - Ejemplo: `"data_structures/kadane.cpp"`
-  - Si no se proporciona, puede usar código inline
-  - Ruta relativa desde la raíz del proyecto
+### Ejemplo 1: Con titulo y archivo
 
-- **`time`** (string o contenido): Complejidad temporal
-  - Ejemplos simples: `"O(n)"`, `"O(n log n)"`
-  - Ejemplos avanzados (múltiples casos):
-    ```typst
-    time: [
-      - O(n) para construcción
-      - O(log n) para consultas
-    ]
-    ```
-
-- **`space`** (string o contenido): Complejidad espacial
-  - Misma sintaxis que `time`
-
-- **`description`** (string o contenido): Descripción detallada del algoritmo
-  - Se muestra en una sección separada en la tarjeta
-
-- **`lang`** (string): Lenguaje de programación para resaltado
-  - Default: `"cpp"`
-  - Ejemplos: `"py"`, `"java"`, `"rust"`
-
-- **`range`** (tupla): Rango de líneas a mostrar del archivo
-  - Sintaxis: `range: (línea_inicio, línea_fin)`
-  - Ayuda a mostrar solo la función relevante sin código extra
-  - **Importante**: Las líneas son 1-indexed (comienzan en 1)
-  - Ejemplo: `range: (6, 23)` muestra desde línea 6 a línea 23
-
-- **`github-base`** (string): URL base para los enlaces a GitHub
-  - Este parámetro es casi nunca necesario (se define globalmente)
-  - Default: Se obtiene del contexto global establecido en `main.typ`
-  - Solo usar si necesita sobrescribir el default
-
-- **Código inline** (parámetro posicional): Código como string en lugar de archivo
-  - Toma precedencia sobre `source-file`
-  - Ejemplo:
-    ````typst
-    #code-entry(
-      title: "Ejemplo simple",
-      time: "O(1)",
-    )[
-        ```py
-        print("Hello world!")
-        ```
-    ]
-    ````
-
-### Ejemplos Prácticos
-
-#### Ejemplo 1: Algoritmo simple con archivo
-
-```typst
+```typ
 #code-entry(
-  title: "Algoritmo de Kadane",
+  title: "Kadane's algorithm",
   time: $O(n)$,
-  space: $O(1)$,
   range: (6, 23),
   source-file: "data_structures/kadane.cpp",
-  description: "Encuentra la suma máxima de un subarreglo"
 )
 ```
 
-**Resultado**: Una tarjeta que muestra:
-- Título: "Algoritmo de Kadane"
-- Complejidad: Tiempo O(n), Espacio O(1)
-- Descripción
-- Líneas 6-23 del archivo `kadane.cpp`
-- Enlace a GitHub para ver el código completo
-
-#### Ejemplo 2: Múltiple complejidad (con casos diferentes)
+### Ejemplo 2: Sin titulo
 
 ```typst
 #code-entry(
-  title: "Árbol de Segmentos",
-  source-file: "data_structures/segment-tree.cpp",
-  range: (6, 41),
-  time: [
-    - $O(n)$ para construcción
-    - $O(log n)$ para consultas
-    - $O(log n)$ para actualizaciones
-  ]
+  source-file: "graphs/topological_sort_bfs.cpp",
+  time: $O(n + m)$,
+  description: "Version BFS (Kahn)",
 )
 ```
 
-**Resultado**: La sección de tiempo muestra múltiples líneas con diferentes complejidades
+En este caso, la tarjeta conserva la barra de acento superior, pero no muestra fila de titulo.
 
-#### Ejemplo 3: Solo descripción (sin complejidad)
+### Ejemplo 3: Codigo inline en vez de source-file
 
-```typst
+````typ
 #code-entry(
-  title: "Concepto: Suma de Prefijos",
-  source-file: "utils/prefix_sum.cpp",
-  description: "Técnica para responder consultas de suma en rangos en O(1) después de O(n) preprocesamiento"
-)
+  title: "Snippet inline",
+  time: $O(1)$,
+)[
+```py
+print("hello")
 ```
+]
+````
 
-### Características Visuales
+## Configuracion Global con reference
 
-Cada tarjeta `code-entry` incluye:
-
-1. **Barra de acento** (3px): Gradiente de color que hace la tarjeta distintiva
-2. **Encabezado**: Fondo suave con el título en negrita
-3. **Secciones de metadatos**: Complejidad de tiempo y/o espacio (si se proporcionan)
-4. **Sección descriptiva**: Texto adicional sobre el algoritmo (si se proporciona)
-5. **Bloque de código**: Con numeración de líneas y resaltado de sintaxis
-6. **Enlace a GitHub**: En el encabezado del código, redirige al archivo fuente
-
-### Integración Global
-
-En `main.typ`, se configura la base para los enlaces a GitHub:
+main.typ aplica la plantilla asi:
 
 ```typst
 #show: reference.with(
-    github-base: "https://github.com/sav1209/My-CP-Reference/blob/main/",
+  github-base: "https://github.com/sav1209/My-CP-Reference/blob/main/",
+  // use-color: false,
 )
 ```
 
-Esto hace que todas las llamadas a `code-entry` con `source-file` automáticamente generen enlaces al repositorio.
+- github-base define el prefijo para links automaticos de code-entry.
+- use-color permite alternar entre tema a color y monocromatico.
 
-### Estructura del Proyecto
+## Recursos
 
-```
-lib.typ          # Define funciones y tema global (incluye code-entry)
-main.typ         # Punto de entrada, incluye secciones
-README.md        # Este archivo
-data_structures/ # Archivos .cpp y section.typ
-sorting_searching/
-graphs/
-number_theory/
-combinatorics/
-```
+### Libros
 
-## 📚 Recursos de Referencia
+- Guide to Competitive Programming - Antti Laaksonen
+- Competitive Programming 4 - Steven Halim, Felix Halim, Suhendry Effendy
 
-## 📘 Libros
-- *Guide to Competitive Programming* - Antti Laaksonen
-- *Competitive Programming 4* -  Steven Halim, Felix Halim, Suhendry Effendy
+### Sitios
 
-## 🌐 Sitios web
-- [USACO Guide](https://usaco.guide/)
-- [Algorithms for Competitive Programming](https://cp-algorithms.com/)
+- https://usaco.guide/
+- https://cp-algorithms.com/
 
-## 🌟 Inpiraciones
+### Inspiraciones
+
 - https://github.com/ecnerwala/icpc-book/blob/master/kactl.pdf
 - https://github.com/bqi343/cp-notebook/blob/master/Implementations/kactl_color.pdf
+- https://github.com/alaneos777/reference
 - https://github.com/SJMA11723/Data-structures-and-algorithms
 - https://github.com/JorgeIba/Reference
 - https://github.com/mhunicken/icpc-team-notebook-el-vasito

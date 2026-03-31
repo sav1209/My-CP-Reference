@@ -1,8 +1,6 @@
 // Soothing pastel theme for Typst
-#import "@preview/catppuccin:1.0.0": catppuccin, flavors
-
-#let flavor = flavors.latte
-#let palette = flavor.colors
+#import "@preview/catppuccin:1.0.0": catppuccin
+#import "colors.typ": *
 
 // Out-of-the-box, customizable and multilingual theorem environment package.
 #import "@preview/theorion:0.3.3": *
@@ -14,6 +12,7 @@
 
 // Global config consumed by `code-entry` when no explicit github-base is passed.
 #let code-entry-github-base-state = state("code-entry-github-base", none)
+#let code-entry-use-color-state = state("code-entry-use-color", true)
 
 // Reusable Font Awesome icon helper and GitHub-link icon.
 #let fa-icon(icon, ..args) = text(
@@ -30,7 +29,7 @@
 // ║                                                                  ║
 // ║  Parameters:                                                     ║
 // ║    source-file  relative path to file, e.g. "math/sieve.cpp"     ║
-// ║    ..args       optional positional inline code content            ║
+// ║    ..args       optional positional inline code content          ║
 // ║    title        code title                                       ║
 // ║    time         time complexity                                  ║
 // ║    space        space complexity                                 ║
@@ -51,16 +50,8 @@
   range: (),
   ..args,
 ) = {
-  // ── Color palette (teal) ──────────────────────────────────────────
-  let c-gradient-a = rgb("#1D9E75") // accent start
-  let c-gradient-b = rgb("#5DCAA5") // accent middle
-  let c-gradient-c = rgb("#E1F5EE") // accent end (fades)
-  let c-header-bg = rgb("#E1F5EE") // header background
-  let c-border = rgb("#9FE1CB") // outer border and separators
-  let c-title = rgb("#04342C") // title text
-  let c-meta-label = rgb("#6B7C78") // muted complexity label
-
   // ── Optional content flags ───────────────────────────────────────
+  let has-title = title != ""
   let has-time = time != ""
   let has-space = space != ""
   let has-both = has-time and has-space
@@ -96,96 +87,116 @@
     text(weight: "black")[#source-file]
   } else { [] }
 
-  // 1. Accent bar with gradient (3pt tall)
-  let accent-bar = grid.cell(
-    fill: gradient.linear(c-gradient-a, c-gradient-b, c-gradient-c, dir: ltr),
-  )[
-    #box(
-      width: 100%,
-      height: 3pt,
-    )
-  ]
+  context {
+    let use-color = code-entry-use-color-state.get()
+    let card-gradient-a = if use-color { c-gradient-a } else { g-c-gradient-a }
+    let card-gradient-b = if use-color { c-gradient-b } else { g-c-gradient-b }
+    let card-gradient-c = if use-color { c-gradient-c } else { g-c-gradient-c }
+    let card-header-bg = if use-color { c-header-bg } else { g-c-header-bg }
+    let card-border = if use-color { c-border } else { g-c-border }
+    let card-title = if use-color { c-title } else { g-c-title }
+    let card-meta-label = if use-color { c-meta-label } else { g-c-meta-label }
 
-  // 2. Header: title on the left
-  let header = grid.cell(
-    fill: c-header-bg,
-    inset: (x: 0.85em, y: 0.6em),
-    align: left + horizon,
-  )[
-    #show math.equation: math.bold
-    #text(
-      weight: "bold",
-      fill: c-title,
-      size: 1em,
+    // 1. Accent bar with gradient (3pt tall)
+    let accent-bar = grid.cell(
+      fill: gradient.linear(card-gradient-a, card-gradient-b, card-gradient-c, dir: ltr),
     )[
-      #title
+      #box(
+        width: 100%,
+        height: 3pt,
+      )
     ]
-  ]
 
-  // 3. Reusable complexity cell (label + value)
-  let meta-cell(label, value) = pad(
-    x: 0.85em,
-    y: 0.5em,
-    stack(
-      dir: ttb,
-      spacing: 0.4em,
-      // Label in uppercase with letter-spacing
-      text(
-        size: 0.68em,
-        fill: c-meta-label,
-        tracking: 0.06em,
-        weight: "medium",
-      )[#upper(label)],
-      text(size: 0.92em)[#value],
-    ),
-  )
-
-  // 4. Complexity section (conditional)
-  let complexity-rows = if has-complexity {
-    let inner = if has-both {
-      grid(
-        columns: (1fr, 1fr),
-        stroke: none,
-        grid.vline(x: 1, stroke: 0.5pt + c-border),
-        meta-cell("Time", time),
-        meta-cell("Space", space),
+    // 2. Header: title on the left (optional)
+    let header-rows = if has-title {
+      (
+        grid.cell(
+          fill: card-header-bg,
+          inset: (x: 0.85em, y: 0.6em),
+          align: left + horizon,
+        )[
+          #show math.equation: math.bold
+          #text(
+            weight: "bold",
+            fill: card-title,
+            size: 1em,
+          )[
+            #title
+          ]
+        ],
       )
-    } else {
-      meta-cell(
-        if has-time { "Time" } else { "Space" },
-        if has-time { time } else { space },
-      )
-    }
-    (grid.hline(stroke: 0.5pt + c-border), inner)
-  } else { () }
+    } else { () }
 
-  // 5. Description section (conditional)
-  let description-rows = if has-description {
-    (
-      grid.hline(stroke: 0.5pt + c-border),
-      pad(x: 0.85em, y: 0.7em)[#description],
+    // 3. Reusable complexity cell (label + value)
+    let meta-cell(label, value) = pad(
+      x: 0.85em,
+      y: 0.5em,
+      stack(
+        dir: ttb,
+        spacing: 0.4em,
+        // Label in uppercase with letter-spacing
+        text(
+          size: 0.68em,
+          fill: card-meta-label,
+          tracking: 0.06em,
+          weight: "medium",
+        )[#upper(label)],
+        text(size: 0.92em)[
+          #set raw(lang: none)
+          #codly(enabled: false)
+          #value
+          #codly(enabled: true)
+        ],
+      ),
     )
-  } else { () }
 
-  // ══════════════════════════════════════════════════════════════════════
-  // CARD ASSEMBLY
-  // ══════════════════════════════════════════════════════════════════════
+    // 4. Complexity section (conditional)
+    let complexity-rows = if has-complexity {
+      let inner = if has-both {
+        grid(
+          columns: (1fr, 1fr),
+          stroke: none,
+          grid.vline(x: 1, stroke: 0.5pt + card-border),
+          meta-cell("Time", time),
+          meta-cell("Space", space),
+        )
+      } else {
+        meta-cell(
+          if has-time { "Time" } else { "Space" },
+          if has-time { time } else { space },
+        )
+      }
+      (grid.hline(stroke: 0.5pt + card-border), inner)
+    } else { () }
 
-  let parts = (accent-bar, header) + complexity-rows + description-rows
+    // 5. Description section (conditional)
+    let description-rows = if has-description {
+      (
+        grid.hline(stroke: 0.5pt + card-border),
+        pad(x: 0.85em, y: 0.7em)[#description],
+      )
+    } else { () }
 
-  block(
-    width: 100%,
-    radius: 5pt,
-    stroke: 0.5pt + c-border,
-    clip: true, // necessary for radius to clip accent-bar
-    breakable: false, // card doesn't break across pages
-    above: 1em,
-    below: 0pt, // code attached to card
-    grid(
-      columns: 100%,
-      ..parts
-    ),
-  )
+    // ══════════════════════════════════════════════════════════════════════
+    // CARD ASSEMBLY
+    // ══════════════════════════════════════════════════════════════════════
+
+    let parts = (accent-bar,) + header-rows + complexity-rows + description-rows
+
+    block(
+      width: 100%,
+      radius: 5pt,
+      stroke: 0.5pt + card-border,
+      clip: true, // necessary for radius to clip accent-bar
+      breakable: false, // card doesn't break across pages
+      above: 1em,
+      below: 0pt, // code attached to card
+      grid(
+        columns: 100%,
+        ..parts
+      ),
+    )
+  }
 
   // ══════════════════════════════════════════════════════════════════════
   // CODE BLOCK (codly)
@@ -220,20 +231,32 @@
 #let reference(
   body,
   github-base: none,
+  use-color: true,
 ) = {
-  show: catppuccin.with(flavor)
+  if use-color {
+    show: catppuccin.with(flavor)
+  }
 
   // Document-level default for code-entry links.
   code-entry-github-base-state.update(github-base)
+  code-entry-use-color-state.update(use-color)
+
+  set raw(theme: "raw_themes/black-white.tmTheme") if not use-color
 
   // Paper size
   set page(
-    margin: (x: 0.5cm, y: 1cm),
+    margin: (top: 1.25cm, rest: 0.5cm),
     paper: "us-letter",
     numbering: "1",
     flipped: true,
     columns: 2,
     fill: none,
+    header: context [
+      #set text(weight: "medium", size: 12pt)
+      #h(1fr)
+      --- #counter(page).display("1") ---
+    ],
+    footer: none,
   )
 
   // Code
@@ -245,42 +268,58 @@
       show math.equation: math.bold
       strong(x)
     },
-    number-format: it => text(numbering("1", it), weight: "bold"),
+    number-format: it => text(
+      numbering("1", it),
+      weight: "medium",
+      fill: if use-color { subtext1 } else { g-c-meta-label },
+    ),
     breakable: true,
     lang-format: (_, icon, _) => text(size: 1.5em, icon),
-    zebra-fill: palette.base.rgb,
-    stroke: 1pt + palette.crust.rgb,
+    zebra-fill: if use-color { base } else { g-code-zebra },
+    stroke: 1pt + if use-color { crust } else { g-code-stroke },
   )
 
   // Boxes
   show: show-theorion
 
-  // Headers
+  // Headings
   set heading(numbering: "1.")
   show heading: it => {
     show math.equation: math.bold
     it
   }
-  show heading.where(level: 1): set text(size: 1.5em, weight: "black", fill: gradient.linear(
-    palette.blue.rgb,
-    palette.sky.rgb,
-    angle: 30deg,
-  ))
+  show heading.where(level: 1): set text(
+    size: 1.5em,
+    weight: "black",
+    fill: if use-color {
+      gradient.linear(blue, sky, angle: 30deg)
+    } else {
+      g-heading-1-a
+    },
+  )
 
-  show heading.where(level: 2): set text(size: 1.3em, weight: "extrabold", fill: gradient.linear(
-    palette.mauve.rgb,
-    palette.pink.rgb,
-    angle: 30deg,
-  ))
+  show heading.where(level: 2): set text(
+    size: 1.3em,
+    weight: "extrabold",
+    fill: if use-color {
+      gradient.linear(mauve, pink, angle: 30deg)
+    } else {
+      g-heading-2-a
+    },
+  )
 
-  show heading.where(level: 3): set text(size: 1.15em, weight: "extrabold", fill: gradient.linear(
-    palette.teal.rgb,
-    palette.green.rgb,
-    angle: 30deg,
-  ))
+  show heading.where(level: 3): set text(
+    size: 1.15em,
+    weight: "extrabold",
+    fill: if use-color {
+      gradient.linear(teal, green, angle: 30deg)
+    } else {
+      g-heading-3-a
+    },
+  )
 
   // Others
-  set highlight(fill: palette.yellow.rgb)
+  set highlight(fill: if use-color { yellow } else { g-highlight })
   set terms(separator: [: #h(0.75em, weak: true)])
 
   body

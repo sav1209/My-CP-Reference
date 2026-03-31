@@ -21,16 +21,17 @@
 ## ✅ Hecho
 
 
-# Funcionalidad
+# Funcionalidad y diseño
 
 ## 💡 Nuevas ideas
 - [ ] Agregar los nombres de los códigos que aparecen en la página actual al encabezado.
-- [ ] Generar un archivo especifíco para la paleta de colores.
-- [ ] Hacer una versión en blanco y negro.
-- [ ] Desactivar codly para el campo de complejidad en  `#code-entry`
 
 ## 🔥 En progreso
 
 ## ✅ Hecho
+- [x] Desactivar codly para el campo de complejidad en  `#code-entry`
+- [x] Cambiar el formato de los números de línea, para que sean más sutiles.
+- [x] Generar un archivo especifíco para la paleta de colores.
+- [x] Hacer una versión en blanco y negro.
 - [x] Cada sección debe tener un hipervínculo a su carpeta correspondiente en GitHub.
 - [x] Dar la opción de utilzar `#code-entry` sin tener que dar un archivo.

@@ -10,7 +10,7 @@ Some uses:
 / 2SUM Problem: Given an array of $n$ numbers and a target sum $x$, find two array values such that their sum is $x$, or report that no such values exist.
 
 / Merging two sorted arrays: Given two arrays, sorted in ascending order combine the elements of these arrays into one big array.
-  ```py
+  ```txt
   while i < a.size() || j < b.size():
     if a[i] < b[j]:
       c[i + j] = a[i]
@@ -21,7 +21,7 @@ Some uses:
   ```
 
 / Number of Smaller: We have two arrays $a$ and $b$. We want to calculate for each element $b_j$ how many such $i$ exist that $a_i < b_j$.
-  ```py
+  ```txt
   i = 0
   for j = 0..b.size()-1:
     while i < a.size() && a[i] < b[j]:

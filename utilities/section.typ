@@ -8,7 +8,7 @@
 #table(
   columns: 4,
   align: (left, left, center, left),
-  stroke: 1pt+palette.crust.rgb,
+  stroke: 1pt+crust,
   [*Method/Syntax*], [*Description*], [*Complexity*], [*Example*],
   
   [`s.size()` / `s.length()`], [Returns the number of characters], [O(1)], [`int n = s.size();`],
@@ -112,7 +112,7 @@ reverse(s.begin(), s.end());
 #table(
   columns: 4,
   align: (left, left, center, left),
-  stroke: 1pt+palette.crust.rgb,
+  stroke: 1pt+crust,
   [*Function/Syntax*], [*Description*], [*Complexity*], [*Example*],
   
   [`sort(begin, end)`], [Sorts elements in ascending order], [O(n log n)], [`sort(v.begin(), v.end())`],
