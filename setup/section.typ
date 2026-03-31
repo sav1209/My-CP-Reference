@@ -5,7 +5,7 @@
 - To print $n$ decimals: `cout << fixed << setprecision(n);`
 
 #code-entry(
-    title: ".bashrc",
+    title: "Bash script for compilation and execution",
     lang: "bash",
     source-file: "setup/compilation.sh"
 )

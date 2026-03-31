@@ -1,5 +1,8 @@
 #import "../lib.typ": *
 
+// Modular multiplicative inverse operator
+#let inv = math.op("inv")
+
 = Number Theory
 
 The _prime-counting function_ $pi(n)$ gives the number of primes up to $n$.

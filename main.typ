@@ -8,7 +8,7 @@
 
 // Code font
 #set raw(
-    lang: "cpp",
+    lang: "cpp",    // Lenguaje por defecto
     tab-size: 4,
 )
 #show raw: set text(font: "FiraCode Nerd Font", weight: "medium")
@@ -23,13 +23,51 @@
     title: "Reference",
     author: "sav1209",
 )
-#show: template
+
+#show: reference.with(
+    github-base: "https://github.com/sav1209/My-CP-Reference/blob/main/",
+)
+
+// Cover page
+#page(
+    columns: 1,
+    footer: none,
+)[
+    #set align(center + horizon)
+
+    #text(
+        2.5em,
+        weight: "bold",
+    )[
+        UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO
+    ]\
+    #text(
+        2em, 
+        weight: "medium",
+        smallcaps[Facultad de Estudios Superiores Acatlán]
+    )
+
+    #v(1em)
+    #grid(
+        columns: 2,
+        inset: (x: 0.5cm),
+        image("escudos/escudo-unam.svg", width: 3cm),
+        image("escudos/escudo-fesa-negro.jpg", width: 3cm)
+    )
+
+    #v(1em)
+    #text(5em, fill: rgb(palette.red.hex))[#smallcaps[*Reference*]]\
+    #v(0.5em)\
+    #text(2em)[*Gatitas Tapabaños Nacatlán*]\
+    #v(0.5em)\
+    #text(1.5em)[by `sav1209`]
+
+    Última actualización: #datetime.today().display()
+]
+
+#pagebreak()
 
 // Title block
-#align(center+horizon)[
-    #text(5em, fill: rgb(palette.red.hex))[#smallcaps[*Reference*]]\
-    #text(1.5em)[by `sav1209`]
-]
 
 // Outline
 #show outline.entry.where(level: 1): strong

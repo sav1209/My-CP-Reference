@@ -1,5 +1,8 @@
 #import "../lib.typ": *
 
+// Modular multiplicative inverse operator
+#let inv = math.op("inv")
+
 = Combinatorics
 
 == Binomial Coefficients

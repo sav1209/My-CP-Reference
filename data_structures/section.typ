@@ -59,5 +59,8 @@ Given an array of integers, find the maximum sum subarray
   title: "Implementation",
   source-file: "data_structures/segment-tree.cpp",
   range: (6, 41),
-  time: [$O(n)$ for building, $O(log n)$ for queries and updates]
+  time: [
+    - $O(n)$ for building
+    - $O(log n)$ for queries and updates
+  ]
 )
