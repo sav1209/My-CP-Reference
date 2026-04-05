@@ -293,7 +293,7 @@
   code-entry-github-base-state.update(github-base)
   code-entry-use-color-state.update(use-color)
 
-  set raw(theme: "raw_themes/black-white.tmTheme") if not use-color
+  set raw(theme: "assets/raw_themes/black-white.tmTheme") if not use-color
 
   // Paper size
   set page(

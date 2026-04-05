@@ -84,7 +84,9 @@
         link(
             "https://github.com/sav1209/My-CP-Reference",
             qrcode("https://github.com/sav1209/My-CP-Reference")
-        )
+        ),
+        v(0.75cm),
+        image("assets/images/shrek.png", width: 70%)
     )
 ]
 

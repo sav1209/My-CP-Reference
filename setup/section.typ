@@ -9,3 +9,8 @@
     lang: "bash",
     source-file: "setup/compilation.sh"
 )
+
+#code-entry(
+    title: "C++ template",
+    source-file: "setup/template.cpp",
+)
