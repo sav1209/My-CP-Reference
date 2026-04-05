@@ -5,17 +5,17 @@
 
 = Number Theory
 
-The _prime-counting function_ $pi(n)$ gives the number of primes up to $n$.
+The *prime-counting function* $bold(pi(n))$ gives the _number of primes up to $n$_.
 $ pi(n) approx n / ln(n) $
 
 == Primes and Factors
 For every integer $n > 1$, there is a unique prime factorization
 $ n = p_1^(alpha_1) p_2^(alpha_2) dots.c p_k^(alpha_k) $
 
-Number of factors of an integer $n$
+/ Number of factors of an integer $bold(n)$:
 $ tau(n) = product_(i = 1)^k (alpha_i + 1) $
 
-Sum of factors of an integer $n$
+/ Sum of factors of an integer $bold(n)$:
 $
   sigma(n) = product_(i = 1)^k (1 + p_i + dots.h + p_i^(alpha_i)) = product_(i = 1)^k (p_i^(alpha_i + 1) - 1)/(p_i - 1)
 $
@@ -64,24 +64,6 @@ $ phi(n) = product_(i = 1)^k p_i^(alpha_i - 1) (p_i - 1) $
   $ x^(phi(m)) mod m = 1 $
 ]
 
-If $m$ is prime, $phi(m) = m − 1$, so the formula becomes
-$ x^(m - 1) mod m = 1 $
-which is known as _Fermat’s little theorem_. This also implies that
-$ x^n mod m = x^(n mod (m - 1)) mod m $
-which can be used to calculate values of $x^n$ if $n$ is very large.
-
-#definition(title: "Modular multiplicative inverse", width: 100%)[
-  The _modular multiplicative inverse_ of $x$ with respect to $m$ is a value $inv_m (x)$ such that
-  $ x dot inv_(m)(x) mod m = 1 $
-]
-
-A modular multiplicative inverse exists exactly when $x$ and $m$ are coprime. In this case it can be calculated using the formula
-$ inv_(m)(x) = x^(phi(m) - 1) $
-
-In particular, if $m$ is prime, $phi(m) = m − 1$ and the formula becomes
-$ inv_(m) (x) = x^(m - 2) $
-
-The above formula allows us to efficiently calculate modular multiplicative inverses using the modular exponentiation algorithm.
 
 == Solving Equations
 #definition(title: "Diophantine equation", width: 100%)[

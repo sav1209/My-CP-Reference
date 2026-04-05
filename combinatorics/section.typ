@@ -5,6 +5,19 @@
 
 = Combinatorics
 
+== Modular Multiplicative Inverse
+#definition(title: "Modular multiplicative inverse", width: 100%)[
+  The _modular multiplicative inverse_ of $x$ with respect to $m$ is a value $inv_m (x)$ such that
+  $ x dot inv_(m)(x) mod m = 1 $
+]
+
+A modular multiplicative inverse exists exactly when $x$ and $m$ are coprime. In this case it can be calculated using the formula
+$ inv_(m)(x) = x^(phi(m) - 1) $
+
+In particular, if $m$ is prime, $phi(m) = m − 1$ and the formula becomes
+$ inv_(m) (x) = x^(m - 2) $
+
+
 == Binomial Coefficients
 
 #note-box[
