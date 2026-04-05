@@ -12,5 +12,5 @@
 
 #code-entry(
     title: "C++ template",
-    source-file: "setup/template.cpp",
+    source-file: "setup/template.h",
 )

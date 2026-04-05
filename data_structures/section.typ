@@ -19,18 +19,6 @@ The submatrix sum between rows $a$ and $A$ and columns $b$ and $B$, can thus be 
 $ sum_(i = a)^A sum_(j = b)^B arr[i][j] = prefix[A][B] - prefix[a - 1][B] - prefix[A][b-1] + prefix[a - 1][b - 1] $
 
 
-
-=== Max Subarray Sum
-
-Given an array of integers, find the maximum sum subarray
-#code-entry(
-  title: "Kadane's algorithm",
-  time: $O(n)$,
-  range: (6, 23),
-  source-file: "data_structures/kadane.cpp",
-)
-
-
 == Disjoin Set Union
 #code-entry(
   title: "Find representative with path compression",

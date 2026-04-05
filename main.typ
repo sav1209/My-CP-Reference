@@ -104,6 +104,7 @@
 #include "sorting_searching/section.typ"
 #include "bit_manipulation/section.typ"
 #include "graphs/section.typ"
+#include "dynamic_programming/section.typ"
 #include "number_theory/section.typ"
 #include "combinatorics/section.typ"
 #include "utilities/section.typ"
