@@ -24,21 +24,75 @@
 )
 #let icon-external-link = fa-icon("\u{f08e}")
 
-// ╔══════════════════════════════════════════════════════════════════╗
-// ║  #code-entry — modern card for CP Reference                      ║
-// ║                                                                  ║
-// ║  Parameters:                                                     ║
-// ║    source-file  relative path to file, e.g. "math/sieve.cpp"     ║
-// ║    ..args       optional positional inline code content          ║
-// ║    title        code title                                       ║
-// ║    time         time complexity                                  ║
-// ║    space        space complexity                                 ║
-// ║    description  optional description                             ║
-// ║    lang         language for syntax highlight (default "cpp")    ║
-// ║    github-base  optional base URL to link source code            ║
-// ║    range        line range for codly, e.g. (6, 20)               ║
-// ╚══════════════════════════════════════════════════════════════════╝
+// ══════════════════════════════════════════════════════════════════════
+// HELPER: resolve-tag-range
+//
+// Given the lines of a source file and a tag name, returns the codly
+// range (1-based, inclusive) that covers the content between the
+// opening and closing markers, EXCLUDING the marker lines themselves.
+//
+// Marker format (in the .cpp file):
+//   // code-snippet: <tag>     ← opening marker
+//   // code-snippet: end       ← closing marker
+//
+// Index arithmetic:
+//   Typst arrays are 0-based; codly ranges are 1-based.
+//   If the opening marker sits at 0-based index `i`:
+//     - Its 1-based line number is  i + 1  (the marker itself, hidden)
+//     - Content starts at           i + 2  (1-based) ← range start
+//   If the closing marker sits at 0-based index `j`:
+//     - Its 1-based line number is  j + 1  (the marker itself, hidden)
+//     - Content ends at             j      (1-based) ← range end
+//   Therefore: codly range = (i + 2, j)
+// ══════════════════════════════════════════════════════════════════════
+#let resolve-tag-range(lines, tag, source-file) = {
+  let open-marker  = "//snippet:" + tag
+  let close-marker = "//snippet:end"
 
+  let open-idx  = none
+  let close-idx = none
+
+  for (i, line) in lines.enumerate() {
+    let normalized = line.split().join()
+    if open-idx == none and normalized == open-marker {
+      open-idx = i
+    } else if open-idx != none and close-idx == none and normalized == close-marker {
+      close-idx = i
+    }
+  }
+
+  if open-idx == none {
+    panic("snippet tag '" + tag + "' not found in '" + source-file + "'")
+  }
+  if close-idx == none {
+    panic("'snippet: end' not found after tag '" + tag + "' in '" + source-file + "'")
+  }
+
+  // Return 1-based codly range, markers excluded
+  (open-idx + 2, close-idx)
+}
+
+
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║ #code-entry — modern card for CP Reference                      ║
+// ║                                                                  ║
+// ║ Parameters:                                                      ║
+// ║   source-file  relative path to file, e.g. "graphs/dijkstra.cpp"║
+// ║   ..args       optional positional inline code content           ║
+// ║   title        code title                                        ║
+// ║   time         time complexity                                   ║
+// ║   space        space complexity                                  ║
+// ║   description  optional description                              ║
+// ║   lang         language for syntax highlight (default "cpp")     ║
+// ║   github-base  optional base URL to link source code             ║
+// ║   range        hardcoded line range for codly, e.g. (6, 20)     ║
+// ║   tag          code-snippet tag to extract from source-file      ║
+// ║                                                                  ║
+// ║ Range resolution priority (first match wins):                    ║
+// ║   1. tag  → resolve range from markers in the source file        ║
+// ║   2. range → use hardcoded range as-is                           ║
+// ║   3. (none) → show the entire file                               ║
+// ╚══════════════════════════════════════════════════════════════════╝
 #let code-entry(
   source-file: "",
   title: "",
@@ -48,22 +102,35 @@
   lang: "cpp",
   github-base: none,
   range: (),
+  tag: none,          // ← NEW: code-snippet tag name
   ..args,
 ) = {
-  // ── Optional content flags ───────────────────────────────────────
-  let has-title = title != ""
-  let has-time = time != ""
-  let has-space = space != ""
-  let has-both = has-time and has-space
-  let has-complexity = has-time or has-space
+  // ── Optional content flags ────────────────────────────────────────
+  let has-title       = title != ""
+  let has-time        = time != ""
+  let has-space       = space != ""
+  let has-both        = has-time and has-space
+  let has-complexity  = has-time or has-space
   let has-description = description != ""
-  let inline-code = if args.pos().len() > 0 { args.pos().at(0) } else { none }
+  let inline-code     = if args.pos().len() > 0 { args.pos().at(0) } else { none }
   let has-inline-code = inline-code != none
-  let has-file = source-file != "" and not has-inline-code
+  let has-file        = source-file != "" and not has-inline-code
 
-  // ══════════════════════════════════════════════════════════════════════
+  // ── Range resolution ──────────────────────────────────────────────
+  // Computed once here so the code-block section stays clean.
+  // Inline code paths ignore both `tag` and `range` (inline always wins).
+  let effective-range = if tag != none and has-file {
+    // Tag takes priority: parse the source file and locate the markers.
+    let lines = read(source-file).split("\n")
+    resolve-tag-range(lines, tag, source-file)
+  } else {
+    // Fall back to the hardcoded range (may be empty → full file).
+    range
+  }
+
+  // ══════════════════════════════════════════════════════════════════
   // SUB-COMPONENTS
-  // ══════════════════════════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════════════════════
 
   // File badge with GitHub hyperlink
   let file-badge = if has-file and github-base == none [
@@ -88,23 +155,20 @@
   } else { [] }
 
   context {
-    let use-color = code-entry-use-color-state.get()
+    let use-color      = code-entry-use-color-state.get()
     let card-gradient-a = if use-color { c-gradient-a } else { g-c-gradient-a }
     let card-gradient-b = if use-color { c-gradient-b } else { g-c-gradient-b }
     let card-gradient-c = if use-color { c-gradient-c } else { g-c-gradient-c }
-    let card-header-bg = if use-color { c-header-bg } else { g-c-header-bg }
-    let card-border = if use-color { c-border } else { g-c-border }
-    let card-title = if use-color { c-title } else { g-c-title }
+    let card-header-bg  = if use-color { c-header-bg  } else { g-c-header-bg  }
+    let card-border     = if use-color { c-border     } else { g-c-border     }
+    let card-title      = if use-color { c-title      } else { g-c-title      }
     let card-meta-label = if use-color { c-meta-label } else { g-c-meta-label }
 
-    // 1. Accent bar with gradient (3pt tall)
+    // 1. Accent bar with gradient (3 pt tall)
     let accent-bar = grid.cell(
       fill: gradient.linear(card-gradient-a, card-gradient-b, card-gradient-c, dir: ltr),
     )[
-      #box(
-        width: 100%,
-        height: 3pt,
-      )
+      #box(width: 100%, height: 3pt)
     ]
 
     // 2. Header: title on the left (optional)
@@ -116,13 +180,7 @@
           align: left + horizon,
         )[
           #show math.equation: math.bold
-          #text(
-            weight: "bold",
-            fill: card-title,
-            size: 1em,
-          )[
-            #title
-          ]
+          #text(weight: "bold", fill: card-title, size: 1em)[#title]
         ],
       )
     } else { () }
@@ -134,7 +192,6 @@
       stack(
         dir: ttb,
         spacing: 0.4em,
-        // Label in uppercase with letter-spacing
         text(
           size: 0.68em,
           fill: card-meta-label,
@@ -157,13 +214,13 @@
           columns: (1fr, 1fr),
           stroke: none,
           grid.vline(x: 1, stroke: 0.5pt + card-border),
-          meta-cell("Time", time),
+          meta-cell("Time",  time),
           meta-cell("Space", space),
         )
       } else {
         meta-cell(
           if has-time { "Time" } else { "Space" },
-          if has-time { time } else { space },
+          if has-time { time  } else { space    },
         )
       }
       (grid.hline(stroke: 0.5pt + card-border), inner)
@@ -177,32 +234,28 @@
       )
     } else { () }
 
-    // ══════════════════════════════════════════════════════════════════════
+    // ══════════════════════════════════════════════════════════════════
     // CARD ASSEMBLY
-    // ══════════════════════════════════════════════════════════════════════
-
+    // ══════════════════════════════════════════════════════════════════
     let parts = (accent-bar,) + header-rows + complexity-rows + description-rows
 
     block(
       width: 100%,
       radius: 5pt,
       stroke: 0.5pt + card-border,
-      clip: true, // necessary for radius to clip accent-bar
+      clip: true,       // necessary for radius to clip accent-bar
       breakable: false, // card doesn't break across pages
       above: 1em,
-      below: 0pt, // code attached to card
-      grid(
-        columns: 100%,
-        ..parts
-      ),
+      below: 0pt,       // code block attaches flush to the card
+      grid(columns: 100%, ..parts),
     )
   }
 
-  // ══════════════════════════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════════════════════
   // CODE BLOCK (codly)
-  // ══════════════════════════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════════════════════
   if has-inline-code {
-    // Inline code takes precedence over source-file and GitHub metadata.
+    // Inline code takes precedence over source-file and all range logic.
     codly()
     if range != () {
       codly(range: range)
@@ -214,15 +267,14 @@
       inline-code
     }
   } else if has-file {
-    // If file exists, code block is shown just below the card
+    // Source-file path: apply effective-range if present.
     codly(header: file-badge)
-    if range != () {
-      codly(range: range)
+    if effective-range != () {
+      codly(range: effective-range)
     }
     v(0.5em)
     raw(read(source-file), lang: lang, block: true)
   } else {
-    // If no file, no code block is shown
     []
   }
 }
