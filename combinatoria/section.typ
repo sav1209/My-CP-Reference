@@ -3,25 +3,22 @@
 // Modular multiplicative inverse operator
 #let inv = math.op("inv")
 
-= Combinatorics
+= Combinatoria
 
 == Modular Multiplicative Inverse
 #definition(title: "Modular multiplicative inverse", width: 100%)[
   The _modular multiplicative inverse_ of $x$ with respect to $m$ is a value $inv_m (x)$ such that
   $ x dot inv_(m)(x) mod m = 1 $
+
+  If $m$ is prime
+  $ inv_(m) (x) = x^(m - 2) $
 ]
-
-A modular multiplicative inverse exists exactly when $x$ and $m$ are coprime. In this case it can be calculated using the formula
-$ inv_(m)(x) = x^(phi(m) - 1) $
-
-In particular, if $m$ is prime, $phi(m) = m − 1$ and the formula becomes
-$ inv_(m) (x) = x^(m - 2) $
 
 
 == Binomial Coefficients
 
 #note-box[
-  For  $n < k$  the value of  $binom(n, k)$  is assumed to be zero.
+  For $n < k$ the value of $binom(n, k)$ is assumed to be zero.
 ]
 
 === Properties

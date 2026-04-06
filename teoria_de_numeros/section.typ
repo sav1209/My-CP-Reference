@@ -1,6 +1,6 @@
 #import "../lib.typ": *
 
-= Number Theory
+= Teoría de números
 
 The *prime-counting function* $bold(pi(n))$ gives the _number of primes up to $n$_.
 $ pi(n) approx n / ln(n) $

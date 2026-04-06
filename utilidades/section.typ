@@ -2,7 +2,7 @@
 
 #set page(columns: 1)
 
-= Utilities
+= Utilidades
 
 == Strings
 #table(
@@ -10,21 +10,6 @@
   align: (left, left, center, left),
   stroke: 1pt+crust,
   [*Method/Syntax*], [*Description*], [*Complexity*], [*Example*],
-  
-  [`s.size()` / `s.length()`], [Returns the number of characters], [O(1)], [`int n = s.size();`],
-  
-  [`s.empty()`], [Checks if string is empty], [O(1)], [`if (s.empty()) { ... }`],
-  
-  [`s[i]` / `s.at(i)`], [Access character at position i], [O(1)], [`char c = s[0];`],
-  
-  [`s.front()` / `s.back()`], [Access first/last character], [O(1)], [`char first = s.front();`],
-  
-  [`s.push_back(c)`], [Appends character to end], [O(1) amortized], [`s.push_back('x');`],
-  
-  [`s.pop_back()`], [Removes last character], [O(1)], [`s.pop_back();`],
-  
-  [`s += str` / `s.append(str)`], [Concatenates string/character], [O(m)], [`s += "hello";`],
-  
   [`s.insert(pos, str)`], [Inserts string at position], [O(n+m)], [`s.insert(2, "abc");`],
   
   [`s.erase(pos, len)`], [Removes len characters from pos], [O(n)], [`s.erase(2, 3);`],

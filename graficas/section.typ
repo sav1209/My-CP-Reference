@@ -1,6 +1,6 @@
 #import "../lib.typ": *
 
-= Graphs
+= Teoría de gráficas
 
 == Graph Traversal
 

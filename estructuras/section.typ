@@ -1,6 +1,6 @@
 #import "../lib.typ": *
 
-= Data structures
+= Estructuras de Datos
 
 == Prefix Sums
 

@@ -1,6 +1,6 @@
 #import "../lib.typ": *
 
-= Dynamic Programming
+= Programación Dinámica
 
 #code-entry(
   title: "Kadane's algorithm",

@@ -1,6 +1,6 @@
 #import "../lib.typ": *
 
-= Sorting & Searching
+= Ordenamiento y Búsqueda
 
 == Two Pointers
 Some uses:

@@ -7,6 +7,8 @@
 #set text(
     size: 10pt,
     font: "Fira Sans",
+    lang: "es",
+    region: "mx",
 )
 
 // ===================================================
@@ -100,12 +102,12 @@
 //  SECCIONES TEMATICAS
 // =====================
 #include "setup/section.typ"
-#include "data_structures/section.typ"
+#include "estructuras/section.typ"
 #include "sorting_searching/section.typ"
 #include "bit_manipulation/section.typ"
-#include "graphs/section.typ"
-#include "dynamic_programming/section.typ"
-#include "number_theory/section.typ"
-#include "combinatorics/section.typ"
+#include "graficas/section.typ"
+#include "dp/section.typ"
+#include "teoria_de_numeros/section.typ"
+#include "combinatoria/section.typ"
 #include "strings/section.typ"
-#include "utilities/section.typ"
+#include "utilidades/section.typ"
