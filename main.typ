@@ -107,4 +107,5 @@
 #include "dynamic_programming/section.typ"
 #include "number_theory/section.typ"
 #include "combinatorics/section.typ"
+#include "strings/section.typ"
 #include "utilities/section.typ"
