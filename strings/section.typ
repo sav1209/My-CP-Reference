@@ -15,3 +15,9 @@
   tag: "add_string",
   source-file: "strings/trie.cpp"
 )
+
+#code-entry(
+  title: "Hash Doble",
+  tag: "hash_doble",
+  source-file: "strings/Hash_Doble.cpp"
+)
