@@ -24,6 +24,28 @@ Flood fill is an algorithm that identifies and labels the connected component th
     source-file: "graphs/floodfill_iterative.cpp",
 )
 
+== Disjoin Set Union
+#code-entry(
+  title: "Find representative with path compression",
+  time: $O(log n)$,
+  source-file: "graphs/dsu_size.cpp",
+  range: (11, 15),
+)
+
+#code-entry(
+  title: "Union by size",
+  time: $O(alpha(m, n))$,
+  source-file: "graphs/dsu_size.cpp",
+  range: (17, 33),
+)
+
+#code-entry(
+  title: "Union by rank",
+  time: $O(alpha(m, n))$,
+  source-file: "graphs/dsu_rank.cpp",
+  range: (17, 34),
+)
+
 
 == Topological Sort
 

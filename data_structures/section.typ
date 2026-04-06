@@ -19,29 +19,6 @@ The submatrix sum between rows $a$ and $A$ and columns $b$ and $B$, can thus be 
 $ sum_(i = a)^A sum_(j = b)^B arr[i][j] = prefix[A][B] - prefix[a - 1][B] - prefix[A][b-1] + prefix[a - 1][b - 1] $
 
 
-== Disjoin Set Union
-#code-entry(
-  title: "Find representative with path compression",
-  time: $O(log n)$,
-  source-file: "data_structures/dsu_size.cpp",
-  range: (11, 15),
-)
-
-#code-entry(
-  title: "Union by size",
-  time: $O(alpha(m, n))$,
-  source-file: "data_structures/dsu_size.cpp",
-  range: (17, 33),
-)
-
-#code-entry(
-  title: "Union by rank",
-  time: $O(alpha(m, n))$,
-  source-file: "data_structures/dsu_rank.cpp",
-  range: (17, 34),
-)
-
-
 == Segment tree
 #code-entry(
   title: "Implementation",
