@@ -43,7 +43,7 @@ Las formas mas faciles de usar este proyecto son las siguientes:
 Puedes abrir un Codespace con un clic usando el boton "Open in GitHub Codespaces" al inicio de este README.
 
 1. Abre el repositorio en GitHub y crea un Codespace.
-2. En la terminal del Codespace instala Typst (paso principal) con:
+2. En la terminal del Codespace instala Typst con:
 ```bash
 curl -fsSL https://install.typst.community/install.sh | sh
 ```
@@ -54,16 +54,10 @@ curl -fsSL https://install.typst.community/install.sh | sh
 typst --version
 ```
 
-4. Compila el documento:
-
-```bash
-typst compile main.typ
-```
-
 Repositorio del script de instalacion:
 https://github.com/typst-community/typst-install
 
-5. Instala Tinymist para facilitar la edicion en VS Code/Codespaces.
+4. Instala Tinymist para facilitar la edicion en VS Code/Codespaces.
 
 Tinymist es una herramienta de apoyo (LSP) para Typst: mejora la experiencia de edicion, pero el motor que compila el proyecto es Typst CLI.
 
@@ -160,7 +154,7 @@ main.typ aplica la plantilla asi:
 
 ### Inspiraciones
 
-- https://github.com/ecnerwala/icpc-book/blob/master/kactl.pdf
+- https://github.com/ecnerwala/icpc-book
 - https://github.com/bqi343/cp-notebook/blob/master/Implementations/kactl_color.pdf
 - https://github.com/alaneos777/reference
 - https://github.com/SJMA11723/Data-structures-and-algorithms
