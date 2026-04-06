@@ -17,7 +17,7 @@
 )
 
 #code-entry(
-  title: "Hash Doble",
+  title: "hash",
   tag: "hash_doble",
   source-file: "strings/Hash_Doble.cpp"
 )
