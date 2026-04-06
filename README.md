@@ -1,7 +1,5 @@
 # Reference de Programacion Competitiva
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/sav1209/My-CP-Reference)
-
 Notas de Programacion Competitiva utilizadas para competencias estilo ICPC generado con Typst.
 Incluye una plantilla visual reutilizable y secciones por tema con codigo.
 
