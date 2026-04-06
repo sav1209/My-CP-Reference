@@ -1,3 +1,4 @@
+// snippet: hash
 struct Hash {//doble hashing
     vector<ll> h1, h2;
     vector<ll> p1, p2;
@@ -29,3 +30,4 @@ struct Hash {//doble hashing
 Hash hs(s);//inicializar
 hs.get(i,j);//lugar de sonde se compara 
 if(hs.get(l,m)==hs.get(i,j))//si 2 cadenas son iguales
+// snippet: end
