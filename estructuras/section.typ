@@ -22,7 +22,7 @@ $ sum_(i = a)^A sum_(j = b)^B arr[i][j] = prefix[A][B] - prefix[a - 1][B] - pref
 == Segment tree
 #code-entry(
   title: "Implementation",
-  source-file: "data_structures/segment-tree.cpp",
+  source-file: "estructuras/segment-tree.cpp",
   range: (6, 41),
   time: [
     - $O(n)$ for building

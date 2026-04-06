@@ -13,7 +13,7 @@
     - Sieving till root
     - Sieving by the odd numbers only
   ],
-  source-file: "number_theory/sieve_with_basic_optimizations.cpp"
+  source-file: "teoria_de_numeros/sieve_with_basic_optimizations.cpp"
 )
 
 == Euclid's Algorithm
@@ -32,7 +32,7 @@ $ a x + b y = gcd(a, b) $
 #code-entry(
   title: "Iterative version",
   time: $O(log min(a, b))$,
-  source-file: "number_theory/extended_euclid_algorithm.cpp"
+  source-file: "teoria_de_numeros/extended_euclid_algorithm.cpp"
 )
 
 == Euler’s Theorem

@@ -16,33 +16,33 @@ Flood fill is an algorithm that identifies and labels the connected component th
 
 #code-entry(
     title: "Example (recursive implementation)",
-    source-file: "graphs/floodfill_recursive.cpp",
+    source-file: "graficas/floodfill_recursive.cpp",
 )
 
 #code-entry(
     title: "Example (iterative implementation)",
-    source-file: "graphs/floodfill_iterative.cpp",
+    source-file: "graficas/floodfill_iterative.cpp",
 )
 
 == Disjoin Set Union
 #code-entry(
   title: "Find representative with path compression",
   time: $O(log n)$,
-  source-file: "graphs/dsu_size.cpp",
+  source-file: "graficas/dsu_size.cpp",
   range: (11, 15),
 )
 
 #code-entry(
   title: "Union by size",
   time: $O(alpha(m, n))$,
-  source-file: "graphs/dsu_size.cpp",
+  source-file: "graficas/dsu_size.cpp",
   range: (17, 33),
 )
 
 #code-entry(
   title: "Union by rank",
   time: $O(alpha(m, n))$,
-  source-file: "graphs/dsu_rank.cpp",
+  source-file: "graficas/dsu_rank.cpp",
   range: (17, 34),
 )
 
@@ -53,10 +53,10 @@ A topological sort of a directed acyclic graph is a linear ordering of its verti
 
 #code-entry(
     title: "DFS Version",
-    source-file: "graphs/topological_sort_dfs.cpp",
+    source-file: "graficas/topological_sort_dfs.cpp",
 )
 
 #code-entry(
     title: "BFS Version (Kahn's Algorithm)",
-    source-file: "graphs/topological_sort_bfs.cpp",
+    source-file: "graficas/topological_sort_bfs.cpp",
 )
