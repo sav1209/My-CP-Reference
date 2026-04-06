@@ -1,3 +1,4 @@
+#include "../setup/template.h"
 // snippet: hash
 struct Hash {//doble hashing
     vector<ll> h1, h2;
