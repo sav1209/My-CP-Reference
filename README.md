@@ -155,7 +155,7 @@ main.typ aplica la plantilla asi:
 ### Inspiraciones
 
 - https://github.com/ecnerwala/icpc-book
-- https://github.com/bqi343/cp-notebook/blob/master/Implementations/kactl_color.pdf
+- https://github.com/bqi343/cp-notebook
 - https://github.com/alaneos777/reference
 - https://github.com/SJMA11723/Data-structures-and-algorithms
 - https://github.com/JorgeIba/Reference
