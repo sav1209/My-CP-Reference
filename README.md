@@ -154,7 +154,7 @@ main.typ aplica la plantilla asi:
 
 ### Inspiraciones
 
-- https://github.com/ecnerwala/icpc-book
+- https://github.com/kth-competitive-programming/kactl/
 - https://github.com/bqi343/cp-notebook
 - https://github.com/alaneos777/reference
 - https://github.com/SJMA11723/Data-structures-and-algorithms
