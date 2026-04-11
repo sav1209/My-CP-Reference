@@ -16,11 +16,15 @@
   source-file: "strings/trie.cpp"
 )
 
+== String hashing
+
 #code-entry(
   title: "hash-doble",
   tag: "hash",
   source-file: "strings/Hash_Doble.cpp"
 )
+
+== KMP
 
 #code-entry(
   title: "KMP — Knuth-Morris-Pratt",
