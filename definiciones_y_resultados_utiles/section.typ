@@ -21,6 +21,8 @@
 
 - Suma de divisores de un entero $n$:
   $ sigma(n) = product_(i = 1)^k (1 + p_i + dots.h + p_i^(alpha_i)) = product_(i = 1)^k (p_i^(alpha_i + 1) - 1)/(p_i - 1) $
+- Producto de divisores de un entero $n$:
+  $ n^(tau(n) / 2) $
 
 === Aritmética modular
 
