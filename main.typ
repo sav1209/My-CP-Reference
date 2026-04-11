@@ -95,7 +95,6 @@
 // =====================
 //  TABLA DE CONTENIDOS
 // =====================
-#lorem(10)
 #show outline.entry.where(level: 1): strong
 #outline()
 
