@@ -58,4 +58,41 @@ $ F_0 = 0, F_1 = 1, F_n = F_(n - 1) + F_(n - 2) $
     image("/assets/images/fibonacci-pascal.png", width: 6cm)
   )
 
-=== Desarreglos
+=== Principio de inclusión-exclusión
+
+$
+lr(|union.big_(i = 1)^n A_i|)
+=
+sum_(i = 1)^n | A_i |
+- sum_(1 <= i < j <= n) | A_i inter A_j |
++ sum_(1 <= i < j < k <= n) | A_i inter A_j inter A_k |
+- dots.c
++ (- 1)^(n - 1) | A_1 inter A_2 inter dots.c inter A_n |
+$
+
+=== Desarreglos (subfactorial)
+$ D_n = sum_(i = 0)^n (-1)^i binom(n, i) (n - i)! approx (n!) / e $
+
+$
+  D_n = cases(
+    0 & " si" n = 1,
+    1 & " si" n = 2,
+    (n - 1) (D_(n - 2) + D_(n - 1)) & " si" n >= 3
+  )
+$
+
+$ D_n = n D_(n - 1) + (-1)^n " para " n >= 1 $
+
+$
+  !0 &= 1\
+  !1 &= 0\
+  !2 &= 1\
+  !3 &= 2\
+  !4 &= 9\
+  !5 &= 44\
+  !6 &= 265\
+  !7 &= 1854\
+  !8 &= 14833\
+  !9 &= 133496\
+  !10 &= 1334961
+$
