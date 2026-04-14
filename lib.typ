@@ -8,7 +8,7 @@
 
 // Codly is a beautiful code presentation template with many features like smart indentation, line numbering, highlighting, etc.
 #import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.8": *
+#import "@preview/codly-languages:0.1.10": *
 
 // Global config consumed by `code-entry` when no explicit github-base is passed.
 #let code-entry-github-base-state = state("code-entry-github-base", none)

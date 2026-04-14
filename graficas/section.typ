@@ -25,27 +25,16 @@ Flood fill is an algorithm that identifies and labels the connected component th
 )
 
 == Disjoin Set Union
-#code-entry(
-  title: "Find representative with path compression",
-  time: $O(log n)$,
-  source-file: "graficas/dsu_size.cpp",
-  range: (11, 15),
-)
 
 #code-entry(
-  title: "Union by size",
-  time: $O(alpha(m, n))$,
-  source-file: "graficas/dsu_size.cpp",
-  range: (17, 33),
+    title: "Disjoint Set Union",
+    time: [
+        - `find`: $O(log n)$
+        - Con path compression y union by size / rank: $O(alpha(n))$, donde $alpha$ es la inversa de la función de Ackermann (amortizada).
+        - Con union by size / rank, peros sin path compression: $O(log n)$ por consulta.
+    ],
+    source-file: "graficas/dsu.cpp"
 )
-
-#code-entry(
-  title: "Union by rank",
-  time: $O(alpha(m, n))$,
-  source-file: "graficas/dsu_rank.cpp",
-  range: (17, 34),
-)
-
 
 == Topological Sort
 
