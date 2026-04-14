@@ -297,18 +297,21 @@
 
   // Paper size
   set page(
-    margin: (top: 1.25cm, rest: 0.5cm),
+    margin: (bottom: 1.25cm, rest: 0.75cm),
     paper: "us-letter",
     numbering: "1",
     flipped: true,
     columns: 2,
     fill: none,
-    header: context [
-      #set text(weight: "medium", size: 12pt)
+    footer: context [
+      #set text(
+        size: 15pt,
+        weight: "semibold",
+        number-type: "old-style",
+      )
       #h(1fr)
-      --- #counter(page).display("1") ---
+      #counter(page).display("1")
     ],
-    footer: none,
   )
 
   // Code

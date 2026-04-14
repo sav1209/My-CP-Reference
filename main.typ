@@ -96,7 +96,7 @@
 //  TABLA DE CONTENIDOS
 // =====================
 #show outline.entry.where(level: 1): strong
-#outline()
+#outline(depth: 2)
 
 // =====================
 //  SECCIONES TEMATICAS
