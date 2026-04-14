@@ -24,7 +24,7 @@ Este repositorio esta centrado en dos archivos principales:
 | catppuccin | 1.0.0 | Tema visual base |
 | theorion | 0.3.3 | Cajas y entornos de apoyo |
 | codly | 1.3.0 | Render de bloques de codigo |
-| codly-languages | 0.1.8 | Lenguajes para codly |
+| codly-languages | 0.1.10 | Lenguajes para codly |
 | zebra | 0.1.0 | Generacion de QR |
 
 ## Guia para Usar el Proyecto
@@ -149,6 +149,7 @@ main.typ aplica la plantilla asi:
 
 ### Sitios
 
+- https://youkn0wwho.academy/topic-list
 - https://usaco.guide/
 - https://cp-algorithms.com/
 
