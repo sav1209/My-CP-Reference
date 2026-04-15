@@ -58,6 +58,22 @@ $ F_0 = 0, F_1 = 1, F_n = F_(n - 1) + F_(n - 2) $
     image("/assets/images/fibonacci-pascal.png", width: 6cm)
   )
 
+==== Estrellas y barras
+
+#theorem[
+  El número de formas de colocar $n$ objetos idénticos en $k$ cajas etiquetadas es
+  $  binom(n + k - 1, n) $
+]
+
+Utilizando este resultado podemos contar el número de sumas de $k$ enteros acotados inferiormente, i.e, el número de soluciones para la ecuación
+$ x_1 + x_2 + dots.c + x_k = n $
+con $x_i >= a_i$.
+
+La solución es:
+$ binom(n - (a_1 + a_2 + dots.c + a_k) + k - 1, n) $
+
+Cuando los $x_i$ están acotados superiormente, podemos usar el principio de inclusión-exclusión para contar el número de soluciones.
+
 === Principio de inclusión-exclusión
 
 $
