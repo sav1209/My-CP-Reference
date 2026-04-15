@@ -24,7 +24,7 @@
   source-file: "strings/Hash_Doble.cpp"
 )
 
-== KMP
+== KMP — Knuth-Morris-Pratt
 
 #code-entry(
   title: "KMP — Knuth-Morris-Pratt",

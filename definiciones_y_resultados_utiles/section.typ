@@ -34,7 +34,7 @@
   $ inv_(m) (x) = x^(m - 2) $
 ]
 
-- Factorial inverso modular: $ inv_(p)((x - 1)!) equiv x * inv_(p)((x!)) mod p $
+- Factorial inverso modular: $display(inv_(p)((x - 1)!) equiv (x dot inv_(p)(x!)) mod p)$
 
 
 == Combinatoria

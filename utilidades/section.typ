@@ -1,9 +1,93 @@
 #import "../lib.typ": *
 
-#set page(columns: 1)
-
 = Utilidades
 
+== STL containers
+
+=== Deques
+A *_deque_* is a dynamic array that can be efficiently manipulated at both ends of the structure.
+
+```
+deque<int> d;
+d.push_back(5); // [5]
+d.push_back(2); // [5,2]
+d.push_front(3); // [3,5,2]
+d.pop_back(); // [3,5]
+d.pop_front(); // [5]
+```
+The operations of a deque also work in $O(1)$ average time. Deques should be used only if there is a need to manipulate both ends of the array.
+
+
+=== Set Structures
+The basic operations of sets are element insertion, search and removal. Sets are implemented so that all the above operations are efficient.
+
+==== Sets and Multisets
+
+*Basic functions*
+- `insert` adds an element to the set
+- `count` returns the number of occurrences of an element in the set
+- `erase` removes an element from the set
+- `find(x)` returns an iterator that points to an element whose value is $x$. However, if the set does not contain $x$, the iterator will be `end()`.
+
+#codly(header: [Use of find])
+```
+auto it = s.find(x);
+if (it == s.end()) {
+    // x is not found
+}
+```
+
+/ Multisets: A _multiset_ is a set that can have several copies of the same value. C++ has the structures `multiset` and `unordered_multiset`.
+  ```
+  multiset<int> s;
+  s.insert(5);
+  s.insert(5);
+  s.insert(5);
+  cout << s.count(5) << "\n"; // 3
+  ```
+  
+  The function erase removes all copies of a value from a multiset:
+  ```
+  s.erase(5);
+  cout << s.count(5) << "\n"; // 0
+  ```
+
+  Often, only one value should be removed, which can be done as follows:
+  ```
+  s.erase(s.find(5));
+  cout << s.count(5) << "\n"; // 2
+  ```
+  Note that the functions `count` and `erase` have an additional $O(k)$ factor where $k$ is the number of elements counted/removed. In particular, it is _not_ efficient to count the number of copies of a value in a multiset using the `count` function.
+
+
+=== Priority Queues
+Insertion and removal take $O(log n)$ time, and retrieval takes $O(1)$ time.
+
+If we only need to efficiently find minimum or maximum elements, it is a good idea to use a priority queue instead of a set or multiset.
+
+By default, the elements in a C++ priority queue are sorted in decreasing order, and it is possible to find and remove the largest element in the queue.
+
+```
+priority_queue<int> q;
+q.push(3);
+q.push(5);
+q.push(7);
+q.push(2);
+cout << q.top() << "\n"; // 7
+q.pop();
+cout << q.top() << "\n"; // 5
+q.pop();
+q.push(6);
+cout << q.top() << "\n"; // 6
+q.pop();
+```
+
+If we want to create a priority queue that supports _finding and removing the smallest element_, we can do it as follows:
+```
+priority_queue<int, vector<int>, greater<int>> q;
+```
+
+#set page(columns: 1)
 == Strings
 #table(
   columns: 4,
@@ -64,34 +148,6 @@
   
   [`isalnum(c)`], [Checks if char is alphanumeric], [O(1)], [`if (isalnum(s[i])) { ... }`],
 )
-
-=== Important Notes:
-
-- *String indexing*: Use `s[i]` for fast access, `s.at(i)` for bounds checking
-- *Find functions*: Return `string::npos` if not found (usually -1 or large value)
-- *Character functions*: `isalpha`, `isdigit`, etc. are in `<cctype>` header
-- *Conversion functions*: `stoi`, `to_string`, etc. are in `<string>` header
-- *Amortized complexity*: `push_back` is O(1) on average due to capacity doubling
-
-=== Useful Patterns:
-```cpp
-// Check if substring exists
-if (s.find("pattern") != string::npos) { ... }
-
-// Convert string to lowercase
-transform(s.begin(), s.end(), s.begin(), [](char c) { return tolower(c); });
-
-// Split string by delimiter
-stringstream ss(s); string token;
-while (getline(ss, token, ',')) { ... }
-
-// Remove leading/trailing whitespace
-s.erase(0, s.find_first_not_of(" \t"));
-s.erase(s.find_last_not_of(" \t") + 1);
-
-// Reverse string
-reverse(s.begin(), s.end());
-```
 
 == STL Algorithm
 #table(
@@ -167,138 +223,9 @@ reverse(s.begin(), s.end());
   [`is_permutation(begin1, end1, begin2)`], [Checks if one range is permutation of another], [O(n²)], [`is_permutation(a.begin(), a.end(), b.begin())`],
 )
 
-=== Important Notes:
-
-- *Sorted ranges required*: `binary_search`, `lower_bound`, `upper_bound`, `equal_range`, `merge`, `set_*` require sorted ranges
-- *`<numeric>` functions*: `accumulate`, `partial_sum`, `iota` are in `<numeric>`, not `<algorithm>`
-- *Iterators*: Many functions return iterators. To get indices: `distance(v.begin(), iter)`
-- *Predicates*: Functions like `count_if`, `find_if` accept lambdas or functors
-- *Custom comparators*: Most accept custom comparators as third parameter
-
 === Useful Combinations:
 ```cpp
 // Sort and remove duplicates
-sort(v.begin(), v.end());
-v.erase(unique(v.begin(), v.end()), v.end());
+sort(all(v));
+v.erase(unique(all(v)), v.end());
 ```
-
-
-== STL containers
-
-=== Deques
-A *_deque_* is a dynamic array that can be efficiently manipulated at both ends of the structure.
-
-```
-deque<int> d;
-d.push_back(5); // [5]
-d.push_back(2); // [5,2]
-d.push_front(3); // [3,5,2]
-d.pop_back(); // [3,5]
-d.pop_front(); // [5]
-```
-The operations of a deque also work in $O(1)$ average time. Deques should be used only if there is a need to manipulate both ends of the array.
-
-
-=== Set Structures
-The basic operations of sets are element insertion, search and removal. Sets are implemented so that all the above operations are efficient.
-
-==== Sets and Multisets
-
-*Basic functions*
-- `insert` adds an element to the set
-- `count` returns the number of occurrences of an element in the set
-- `erase` removes an element from the set
-- `find(x)` returns an iterator that points to an element whose value is $x$. However, if the set does not contain $x$, the iterator will be `end()`.
-
-#codly(header: [Prints the number of elements in a set])
-```
-cout << s.size() << "\n";
-for (auto x : s) {
-    cout << x << "\n";
-}
-```
-
-#codly(header: [Use of find])
-```
-auto it = s.find(x);
-if (it == s.end()) {
-    // x is not found
-}
-```
-
-/ Multisets: A _multiset_ is a set that can have several copies of the same value. C++ has the structures `multiset` and `unordered_multiset`.
-  ```
-  multiset<int> s;
-  s.insert(5);
-  s.insert(5);
-  s.insert(5);
-  cout << s.count(5) << "\n"; // 3
-  ```
-  
-  The function erase removes all copies of a value from a multiset:
-  ```
-  s.erase(5);
-  cout << s.count(5) << "\n"; // 0
-  ```
-
-  Often, only one value should be removed, which can be done as follows:
-  ```
-  s.erase(s.find(5));
-  cout << s.count(5) << "\n"; // 2
-  ```
-  Note that the functions `count` and `erase` have an additional $O(k)$ factor where $k$ is the number of elements counted/removed. In particular, it is _not_ efficient to count the number of copies of a value in a multiset using the `count` function.
-
-
-=== Priority Queues
-Insertion and removal take $O(log n)$ time, and retrieval takes $O(1)$ time.
-
-If we only need to efficiently find minimum or maximum elements, it is a good idea to use a priority queue instead of a set or multiset.
-
-By default, the elements in a C++ priority queue are sorted in decreasing order, and it is possible to find and remove the largest element in the queue.
-
-```
-priority_queue<int> q;
-q.push(3);
-q.push(5);
-q.push(7);
-q.push(2);
-cout << q.top() << "\n"; // 7
-q.pop();
-cout << q.top() << "\n"; // 5
-q.pop();
-q.push(6);
-cout << q.top() << "\n"; // 6
-q.pop();
-```
-
-If we want to create a priority queue that supports finding and removing the smallest element, we can do it as follows:
-```
-priority_queue<int,vector<int>,greater<int>> q;
-```
-
-
-=== Policy-based data structures
-
-The g++ compiler also supports some data structures that are not part of the C++ standard library. Such structures are called policy-based data structures. To use these structures, the following lines must be added to the code:
-
-```
-#include <ext/pb_ds/assoc_container.hpp>
-using namespace __gnu_pbds;
-```
-
-After this, we can define a data structure `indexed_set` that is like set but can be indexed like an array. The definition for int values is as follows:
-
-```
-using indexed_set = tree<
-    int,
-    null_type,
-    less<int>,
-    rb_tree_tag,
-    tree_order_statistics_node_update
->;
-```
-
-This data structure supports all the operations as a set in C++ in addition to the following:
-
-- `find_by_order(k)`: returns an iterator to the $k$-th smallest element (0-based indexing)
-- `order_of_key(x)`: returns the number of elements in the set that are strictly less than $x$
