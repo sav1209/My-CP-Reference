@@ -40,6 +40,9 @@
 === Números de Fibonacci
 $ F_0 = 0, F_1 = 1, F_n = F_(n - 1) + F_(n - 2) $
 
+=== Números de Catalán
+
+
 === Coeficientes binomiales
 - Pascal's Triangle: #h(1fr)$ binom(n, k) = binom(n - 1, k - 1) + binom(n - 1, k) $
 - Symmetry rule: $ binom(n, k) = binom(n, n - k) $
@@ -54,7 +57,7 @@ $ F_0 = 0, F_1 = 1, F_n = F_(n - 1) + F_(n - 2) $
     image("/assets/images/fibonacci-pascal.png", width: 6cm)
   )
 
-==== Estrellas y barras
+=== Estrellas y barras
 
 #theorem[
   El número de formas de colocar $n$ objetos idénticos en $k$ cajas etiquetadas es

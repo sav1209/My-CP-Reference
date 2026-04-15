@@ -49,3 +49,10 @@ A topological sort of a directed acyclic graph is a linear ordering of its verti
     title: "BFS Version (Kahn's Algorithm)",
     source-file: "graficas/topological_sort_bfs.cpp",
 )
+
+== Lowest Common Ancestor (LCA)
+
+#code-entry(
+    title: "Lowest Common Ancestor - Binary Lifting",
+    source-file: "graficas/lca.cpp"
+)
