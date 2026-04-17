@@ -1,91 +1,9 @@
 #import "../lib.typ": *
 
+#set page(columns: 1)
+
 = Utilidades
 
-== STL containers
-
-=== Deques
-A *_deque_* is a dynamic array that can be efficiently manipulated at both ends of the structure.
-
-```
-deque<int> d;
-d.push_back(5); // [5]
-d.push_back(2); // [5,2]
-d.push_front(3); // [3,5,2]
-d.pop_back(); // [3,5]
-d.pop_front(); // [5]
-```
-The operations of a deque also work in $O(1)$ average time. Deques should be used only if there is a need to manipulate both ends of the array.
-
-=== Set Structures
-The basic operations of sets are element insertion, search and removal. Sets are implemented so that all the above operations are efficient.
-
-==== Sets and Multisets
-
-*Basic functions*
-- `insert` adds an element to the set
-- `count` returns the number of occurrences of an element in the set
-- `erase` removes an element from the set
-- `find(x)` returns an iterator that points to an element whose value is $x$. However, if the set does not contain $x$, the iterator will be `end()`.
-
-#codly(header: [Use of find])
-```
-auto it = s.find(x);
-if (it == s.end()) {
-    // x is not found
-}
-```
-
-/ Multisets: A _multiset_ is a set that can have several copies of the same value. C++ has the structures `multiset` and `unordered_multiset`.
-  ```
-  multiset<int> s;
-  s.insert(5);
-  s.insert(5);
-  s.insert(5);
-  cout << s.count(5) << "\n"; // 3
-  ```
-
-  The function erase removes all copies of a value from a multiset:
-  ```
-  s.erase(5);
-  cout << s.count(5) << "\n"; // 0
-  ```
-
-  Often, only one value should be removed, which can be done as follows:
-  ```
-  s.erase(s.find(5));
-  cout << s.count(5) << "\n"; // 2
-  ```
-  Note that the functions `count` and `erase` have an additional $O(k)$ factor where $k$ is the number of elements counted/removed. In particular, it is _not_ efficient to count the number of copies of a value in a multiset using the `count` function.
-
-=== Priority Queues
-Insertion and removal take $O(log n)$ time, and retrieval takes $O(1)$ time.
-
-If we only need to efficiently find minimum or maximum elements, it is a good idea to use a priority queue instead of a set or multiset.
-
-By default, the elements in a C++ priority queue are sorted in decreasing order, and it is possible to find and remove the largest element in the queue.
-
-```
-priority_queue<int> q;
-q.push(3);
-q.push(5);
-q.push(7);
-q.push(2);
-cout << q.top() << "\n"; // 7
-q.pop();
-cout << q.top() << "\n"; // 5
-q.pop();
-q.push(6);
-cout << q.top() << "\n"; // 6
-q.pop();
-```
-
-If we want to create a priority queue that supports _finding and removing the smallest element_, we can do it as follows:
-```
-priority_queue<int, vector<int>, greater<int>> q;
-```
-
-#set page(columns: 1)
 == Funciones útiles para strings en C++
 
 #codly(enabled: false)
