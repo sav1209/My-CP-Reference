@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// snippet: last_true
 int last_true(int lo, int hi, function<bool(int)> f) {
 	// if none of the values in the range work, return lo - 1
 	lo--;
@@ -17,6 +18,7 @@ int last_true(int lo, int hi, function<bool(int)> f) {
 	}
 	return lo;
 }
+// snippet: end
 
 int main() {
 	// all numbers satisfy the condition (outputs 10)

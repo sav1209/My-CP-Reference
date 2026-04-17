@@ -30,16 +30,18 @@ Some uses:
   ```
 
 
-== Binary Search on Monotonic Functions
+== Búsqueda binaria en funciones monótonas
 
 #code-entry(
-  title: [Finding The Maximum $x$ Such That $f(x) = "true"$],
+  title: [Encuntra la máxima $x$ tal que $f(x) = "true"$],
   time: $O(log n)$,
+  tag: "last_true",
   source-file: "ordenamiento_busqueda/last_true.cpp",
 )
 
 #code-entry(
-    title: [Finding The Minimum $x$ Such That $f(x) = "true"$],
+    title: [Encuntra la mínima $x$ tal que $f(x) = "true"$],
     time: $O(log n)$,
+    tag: "first_true",
     source-file: "ordenamiento_busqueda/first_true.cpp",
 )

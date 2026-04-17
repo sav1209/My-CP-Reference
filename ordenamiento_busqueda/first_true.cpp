@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// snippet: first_true
 int first_true(int lo, int hi, function<bool(int)> f) {
 	hi++;
 	while (lo < hi) {
@@ -13,6 +14,7 @@ int first_true(int lo, int hi, function<bool(int)> f) {
 	}
 	return lo;
 }
+// snippet: end
 
 int main() {
 	// outputs 2
