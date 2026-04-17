@@ -42,6 +42,35 @@ $ F_0 = 0, F_1 = 1, F_n = F_(n - 1) + F_(n - 2) $
 
 === Números de Catalán
 
+$ C_0 = C_1 = 1 $
+
+$ C_n = sum_(k = 0)^(n - 1) C_k C_(n - 1 - k), n >= 2 $
+
+$ C_n = 1/(n + 1) binom(2 n, n) $
+
+==== Aplicaciones
+El número de Catalán $C_n$ es la solución para:
+
+- El número de secuencias de paréntesis correctas compuestas por $n$ paréntesis de apertura y $n$ de cierre.
+
+- El número de árboles binarios completos enraizados con $n + 1$ hojas (los vértices no están numerados). Un árbol binario enraizado es completo si cada vértice tiene dos hijos o ninguno.
+
+- El número de formas de parentizar completamente $n + 1$ factores.
+
+- El número de triangulaciones de un polígono convexo con $n + 2$ lados (es decir, el número de particiones del polígono en triángulos disjuntos usando diagonales).
+
+- El número de formas de conectar los $2n$ puntos de una circunferencia para formar $n$ cuerdas disjuntas.
+
+- El número de árboles binarios completos no isomorfos con $n$ nodos internos (es decir, nodos que tienen al menos un hijo).
+
+- El número de caminos monótonos en una retícula desde el punto $(0, 0)$ hasta el punto $(n, n)$ en una cuadrícula de tamaño $n times n$, que no pasan por encima de la diagonal principal.
+
+- El número de permutaciones de longitud $n$ que pueden ordenarse con una pila. Se puede demostrar que la reordenación es ordenable con una pila si y solo si no existe un índice $i < j < k$ tal que $a_k < a_i < a_j$.
+
+- El número de particiones no cruzadas de un conjunto de $n$ elementos.
+
+- El número de formas de cubrir la escalera $1, dots.c, n$ usando $n$ rectángulos. La escalera consta de $n$ columnas, donde la $i$-ésima columna tiene altura $i$.
+
 
 === Coeficientes binomiales
 - Pascal's Triangle: #h(1fr)$ binom(n, k) = binom(n - 1, k - 1) + binom(n - 1, k) $
