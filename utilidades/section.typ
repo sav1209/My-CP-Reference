@@ -17,7 +17,6 @@ d.pop_front(); // [5]
 ```
 The operations of a deque also work in $O(1)$ average time. Deques should be used only if there is a need to manipulate both ends of the array.
 
-
 === Set Structures
 The basic operations of sets are element insertion, search and removal. Sets are implemented so that all the above operations are efficient.
 
@@ -45,7 +44,7 @@ if (it == s.end()) {
   s.insert(5);
   cout << s.count(5) << "\n"; // 3
   ```
-  
+
   The function erase removes all copies of a value from a multiset:
   ```
   s.erase(5);
@@ -58,7 +57,6 @@ if (it == s.end()) {
   cout << s.count(5) << "\n"; // 2
   ```
   Note that the functions `count` and `erase` have an additional $O(k)$ factor where $k$ is the number of elements counted/removed. In particular, it is _not_ efficient to count the number of copies of a value in a multiset using the `count` function.
-
 
 === Priority Queues
 Insertion and removal take $O(log n)$ time, and retrieval takes $O(1)$ time.
@@ -88,144 +86,445 @@ priority_queue<int, vector<int>, greater<int>> q;
 ```
 
 #set page(columns: 1)
-== Strings
-#table(
-  columns: 4,
-  align: (left, left, center, left),
-  stroke: 1pt+crust,
-  [*Method/Syntax*], [*Description*], [*Complexity*], [*Example*],
-  [`s.insert(pos, str)`], [Inserts string at position], [O(n+m)], [`s.insert(2, "abc");`],
-  
-  [`s.erase(pos, len)`], [Removes len characters from pos], [O(n)], [`s.erase(2, 3);`],
-  
-  [`s.substr(pos, len)`], [Returns substring from pos with len chars], [O(len)], [`string sub = s.substr(2, 5);`],
-  
-  [`s.find(str, pos)`], [Finds first occurrence of str from pos], [O(n*m)], [`size_t pos = s.find("abc");`],
-  
-  [`s.rfind(str, pos)`], [Finds last occurrence of str before pos], [O(n*m)], [`size_t pos = s.rfind("abc");`],
-  
-  [`s.find_first_of(chars)`], [Finds first occurrence of any char in chars], [O(n*m)], [`s.find_first_of("aeiou");`],
-  
-  [`s.find_last_of(chars)`], [Finds last occurrence of any char in chars], [O(n*m)], [`s.find_last_of("aeiou");`],
-  
-  [`s.find_first_not_of(chars)`], [Finds first char not in chars], [O(n*m)], [`s.find_first_not_of(" \t");`],
-  
-  [`s.find_last_not_of(chars)`], [Finds last char not in chars], [O(n*m)], [`s.find_last_not_of(" \t");`],
-  
-  [`s.replace(pos, len, str)`], [Replaces len chars at pos with str], [O(n+m)], [`s.replace(2, 3, "xyz");`],
-  
-  [`s.compare(str)`], [Lexicographically compares strings], [O(min(n,m))], [`int cmp = s.compare("abc");`],
-  
-  [`s.c_str()`], [Returns C-style null-terminated string], [O(1)], [`const char* cstr = s.c_str();`],
-  
-  [`s.data()`], [Returns pointer to character array], [O(1)], [`char* ptr = s.data();`],
-  
-  [`s.reserve(n)`], [Reserves capacity for n characters], [O(1)], [`s.reserve(1000);`],
-  
-  [`s.resize(n, c)`], [Changes size to n, filling with c if needed], [O(n)], [`s.resize(10, 'x');`],
-  
-  [`s.clear()`], [Removes all characters], [O(n)], [`s.clear();`],
-  
-  [`s.swap(other)`], [Swaps contents with another string], [O(1)], [`s.swap(t);`],
-  
-  [`getline(cin, s)`], [Reads entire line including spaces], [O(n)], [`getline(cin, s);`],
-  
-  [`getline(cin, s, delim)`], [Reads until delimiter character], [O(n)], [`getline(cin, s, ',');`],
-  
-  [`stoi(s)` / `stol(s)` / `stoll(s)`], [Converts string to int/long/long long], [O(n)], [`int num = stoi("123");`],
-  
-  [`stof(s)` / `stod(s)`], [Converts string to float/double], [O(n)], [`double d = stod("3.14");`],
-  
-  [`to_string(num)`], [Converts number to string], [O(log num)], [`string s = to_string(42);`],
-  
-  [`isalpha(c)` / `isdigit(c)`], [Checks if char is letter/digit], [O(1)], [`if (isalpha(s[i])) { ... }`],
-  
-  [`islower(c)` / `isupper(c)`], [Checks if char is lowercase/uppercase], [O(1)], [`if (islower(s[i])) { ... }`],
-  
-  [`tolower(c)` / `toupper(c)`], [Converts char to lowercase/uppercase], [O(1)], [`s[i] = tolower(s[i]);`],
-  
-  [`isspace(c)`], [Checks if char is whitespace], [O(1)], [`if (isspace(s[i])) { ... }`],
-  
-  [`isalnum(c)`], [Checks if char is alphanumeric], [O(1)], [`if (isalnum(s[i])) { ... }`],
-)
+== Funciones útiles para strings en C++
 
-== STL Algorithm
+#codly(enabled: false)
 #table(
-  columns: 4,
-  align: (left, left, center, left),
+  columns: (auto, auto, 1fr, auto),
+  align: (left+horizon, center+horizon, horizon+left, horizon+left),
   stroke: 1pt+crust,
-  [*Function/Syntax*], [*Description*], [*Complexity*], [*Example*],
-  
-  [`sort(begin, end)`], [Sorts elements in ascending order], [O(n log n)], [`sort(v.begin(), v.end())`],
-  
-  [`stable_sort(begin, end)`], [Sorts maintaining relative order of equal elements], [O(n log n)], [`stable_sort(v.begin(), v.end())`],
-  
-  [`reverse(begin, end)`], [Reverses the order of elements], [O(n)], [`reverse(v.begin(), v.end())`],
-  
-  [`binary_search(begin, end, val)`], [Searches for value in sorted range (returns bool)], [O(log n)], [`binary_search(v.begin(), v.end(), x)`],
-  
-  [`lower_bound(begin, end, val)`], [Finds first element ≥ val], [O(log n)], [`lower_bound(v.begin(), v.end(), x)`],
-  
-  [`upper_bound(begin, end, val)`], [Finds first element > val], [O(log n)], [`upper_bound(v.begin(), v.end(), x)`],
-  
-  [`equal_range(begin, end, val)`], [Returns pair of iterators \[lower_bound, upper_bound\]], [O(log n)], [`equal_range(v.begin(), v.end(), x)`],
-  
-  [`min_element(begin, end)`], [Finds iterator to minimum element], [O(n)], [`min_element(v.begin(), v.end())`],
-  
-  [`max_element(begin, end)`], [Finds iterator to maximum element], [O(n)], [`max_element(v.begin(), v.end())`],
-  
-  [`minmax_element(begin, end)`], [Returns pair {min_iter, max_iter}], [O(n)], [`minmax_element(v.begin(), v.end())`],
-  
-  [`next_permutation(begin, end)`], [Generates next lexicographic permutation], [O(n)], [`next_permutation(v.begin(), v.end())`],
-  
-  [`prev_permutation(begin, end)`], [Generates previous lexicographic permutation], [O(n)], [`prev_permutation(v.begin(), v.end())`],
-  
-  [`unique(begin, end)`], [Removes consecutive duplicate elements], [O(n)], [`unique(v.begin(), v.end())`],
-  
-  [`count(begin, end, val)`], [Counts occurrences of a value], [O(n)], [`count(v.begin(), v.end(), x)`],
-  
-  [`count_if(begin, end, pred)`], [Counts elements satisfying condition], [O(n)], [`count_if(v.begin(), v.end(), [](int x){return x%2==0;})`],
-  
-  [`find(begin, end, val)`], [Finds first occurrence of value], [O(n)], [`find(v.begin(), v.end(), x)`],
-  
-  [`find_if(begin, end, pred)`], [Finds first element satisfying condition], [O(n)], [`find_if(v.begin(), v.end(), [](int x){return x>5;})`],
-  
-  [`rotate(begin, middle, end)`], [Rotates elements (middle becomes new begin)], [O(n)], [`rotate(v.begin(), v.begin()+k, v.end())`],
-  
-  [`random_shuffle(begin, end)`], [Shuffles elements randomly], [O(n)], [`random_shuffle(v.begin(), v.end())`],
-  
-  [`shuffle(begin, end, rng)`], [Shuffles with specific random generator], [O(n)], [`shuffle(v.begin(), v.end(), rng)`],
-  
-  [`fill(begin, end, val)`], [Fills range with a value], [O(n)], [`fill(v.begin(), v.end(), 0)`],
-  
-  [`iota(begin, end, val)`], [Fills with consecutive values starting from val], [O(n)], [`iota(v.begin(), v.end(), 1)`],
-  
-  [`accumulate(begin, end, init)`], [Sums elements (requires `<numeric>`)], [O(n)], [`accumulate(v.begin(), v.end(), 0)`],
-  
-  [`partial_sum(begin, end, out)`], [Calculates partial sums], [O(n)], [`partial_sum(v.begin(), v.end(), prefix.begin())`],
-  
-  [`merge(begin1, end1, begin2, end2, out)`], [Merges two sorted ranges], [O(n+m)], [`merge(a.begin(), a.end(), b.begin(), b.end(), c.begin())`],
-  
-  [`inplace_merge(begin, middle, end)`], [Merges two sorted parts of same range], [O(n log n)], [`inplace_merge(v.begin(), v.begin()+k, v.end())`],
-  
-  [`set_union(begin1, end1, begin2, end2, out)`], [Union of two sorted sets], [O(n+m)], [`set_union(a.begin(), a.end(), b.begin(), b.end(), c.begin())`],
-  
-  [`set_intersection(begin1, end1, begin2, end2, out)`], [Intersection of two sorted sets], [O(n+m)], [`set_intersection(a.begin(), a.end(), b.begin(), b.end(), c.begin())`],
-  
-  [`set_difference(begin1, end1, begin2, end2, out)`], [Difference of two sorted sets], [O(n+m)], [`set_difference(a.begin(), a.end(), b.begin(), b.end(), c.begin())`],
-  
-  [`nth_element(begin, nth, end)`], [Partitions so nth element is in correct position], [O(n) avg], [`nth_element(v.begin(), v.begin()+k, v.end())`],
-  
-  [`partition(begin, end, pred)`], [Partitions elements by predicate], [O(n)], [`partition(v.begin(), v.end(), [](int x){return x%2==0;})`],
-  
-  [`is_sorted(begin, end)`], [Checks if range is sorted], [O(n)], [`is_sorted(v.begin(), v.end())`],
-  
-  [`is_permutation(begin1, end1, begin2)`], [Checks if one range is permutation of another], [O(n²)], [`is_permutation(a.begin(), a.end(), b.begin())`],
-)
-
-=== Useful Combinations:
-```cpp
-// Sort and remove duplicates
-sort(all(v));
-v.erase(unique(all(v)), v.end());
+  [*Sintaxis*], [*Complejidad*], [*Descripción*], [*Ejemplos*],
+[
 ```
+s.substr(pos, len)
+```
+],
+[$ O(n) $],
+[
+  Extrae y retorna una subcadena que inicia en la posición `pos` con longitud `len`. Si `len` se omite, va hasta el final. Fundamental para extraer tokens y ventanas deslizantes.
+],[
+```
+string s = "hola_mundo";
+string a = s.substr(0, 4);   // "hola"
+string b = s.substr(5);      // "mundo"
+string c = s.substr(2, 3);   // "la_"
+```
+],
+
+[
+```
+s.find(str, pos)
+s.rfind(str, pos)
+```
+],
+[$ O(n m) $],
+[
+  Busca la primera (`find`) o última (`rfind`) ocurrencia de `str` en `s` a partir de `pos`. Retorna `string::npos` si no existe.
+], [
+```
+string s = "abcabcabc";
+size_t f = s.find("bc");    // 1
+size_t rf = s.rfind("bc");  // 7
+if (s.find("xyz") == string::npos)
+    cout << "no encontrado";
+```
+],
+
+[
+```
+s.replace(pos, len, str)
+```
+],
+[$ O(n) $],
+[
+  Reemplaza `len` caracteres desde `pos` con la cadena `str`.
+], [
+```
+string s = "hola mundo";
+s.replace(5, 5, "C++");    // "hola C++"
+s.replace(0, 4, "adios");  // "adios C++"
+```
+],
+
+[
+```
+s.erase(pos, len)
+s.erase(iterator)
+```
+],
+[$ O(n) $],
+[
+  Elimina `len` caracteres desde `pos`, o el carácter apuntado por un `iterator`. Muy útil para remover caracteres/subcadenas no deseados durante el procesamiento.
+], [
+```
+string s = "hola mundo";
+s.erase(4, 6);   // "hola"
+
+string t = "a1b2c3";
+t.erase(remove_if(all(t), ::isdigit), t.end());
+// "abc"
+```
+],
+
+[
+```
+s.insert(pos, str)
+s.insert(pos, n, ch)
+```
+],
+[$ O(n) $],
+[
+  Inserta `str` en la posición `pos`, desplazando el resto. También puede insertar `n` copias de un carácter `ch`.
+], [
+```
+string s = "holamundo";
+s.insert(4, " ");    // "hola mundo"
+
+string t = "abc";
+t.insert(1, 3, '*');  // "a***bc"
+```
+],
+
+[
+```
+s.find_first_of(chars, pos)
+s.find_last_of(chars, pos)
+```
+],
+[$ O(n m) $],
+[
+  Encuentra la posición del primer o último carácter de `s` que pertenezca al conjunto `chars`. Ideal para parsing de múltiples delimitadores en una sola llamada.
+], [
+```
+string s = "hola,mundo;cpp";
+size_t p1 = s.find_first_of(";,"); // 4 (',')
+size_t p2 = s.find_last_of(";,");  // 9 (';')
+```
+],
+
+[
+```
+s.compare(str)
+s.compare(pos, len, str)
+```
+],
+[$ O(n) $],
+[
+  Compara lexicográficamente. Retorna `0` si son iguales, `< 0` si `s` < `str` y `> 0` si `s` > `str`. Permite comparar subcadenas sin extraerlas, evitando allocaciones innecesarias.
+], [
+```
+"abc".compare("abc") == 0;  // igual
+"abc".compare("abd") < 0;   // menor
+
+string s = "hola mundo";
+s.compare(5, 5, "mundo") == 0;  // true
+```
+],
+
+[
+```
+count(all(s), ch)
+```
+],
+[$ O(n) $],
+[
+  Cuenta las ocurrencias de un carácter `ch` en el `string`.
+], [
+```
+string s = "banana";
+int a = count(all(s), 'a');  // 3
+int n = count(all(s), 'n');  // 2
+int b = count(all(s), 'b');  // 1
+```
+],
+
+[
+```
+s.erase(unique(all(s)), s.end())
+```
+],
+[$ O(n) $],
+[
+  Elimina caracteres duplicados consecutivos. Si se aplica sobre un string ordenado, elimina todos los duplicados.
+], [
+```
+string s = "aabbccddee";
+s.erase(unique(all(s)), s.end());
+// "abcde"
+
+// Todos los duplicados (con sort previo)
+string t = "bcaabbcc";
+sort(all(t));   // "aabbbbcc"
+t.erase(unique(all(t)), t.end()); // "abc"
+```
+],
+
+[
+```
+next_permutation(all(s))
+```
+],
+[$ O(n) $],
+[
+  Transforma `s` en su siguiente permutación lexicográfica. Retorna `false` al volver a la primera permutación.
+], [
+```
+string s = "abc";
+do {
+    cout << s << "\n";
+} while (next_permutation(all(s)));
+// abc, acb, bac, bca, cab, cba
+```
+],
+
+[
+```
+isalpha(c)
+isdigit(c)
+isalnum(c)
+```
+],
+[$ O(1) $],
+[
+  Verifican si un carácter `c` es letra, dígito o alfanumérico respectivamente.
+], [
+```
+for (char c : "hallo mundo") {
+    if (isalpha(c))  cout << "letra";
+    if (isdigit(c))  cout << "digito";
+    if (isalnum(c))  cout << "alfanum";
+    if (isspace(c))  cout << "espacio";
+}
+```
+],
+)
+
+== Funciones útiles de `<algorithm>`
+
+#table(
+  columns: (auto, auto, 1fr, auto),
+  align: (left+horizon, center+horizon, horizon+left, horizon+left),
+  stroke: 1pt+crust,
+  [*Sintaxis*], [*Complejidad*], [*Descripción*], [*Ejemplos*],
+
+[
+```
+lower_bound(begin, end, val)
+```
+],
+[$ O(log n) $],
+[
+  Retorna iterador al primer elemento `>= val`. Si todos los elementos son `< val`, retorna `end()`.
+], [
+```
+auto it = lower_bound(all(v), 10);
+if (it == v.end())
+    cout << "No hay elemento >= 10";
+```
+],
+
+[
+```
+upper_bound(begin, end, val)
+```
+],
+[$ O(log n) $],
+[
+  Retorna iterador al primer elemento `> val`. Si todos los elementos son `<= val`, retorna `end()`.
+], [
+```
+auto it = upper_bound(all(v), 9);
+int cnt = it - lower_bound(all(v), 9);
+// cuenta iguales a 9
+```
+],
+
+[
+```
+binary_search(begin, end, val)
+```
+],
+[$ O(log n) $],
+[
+  Retorna `true` si `val` esta en el rango ordenado.
+], [
+```
+if (binary_search(all(v), 5))
+    cout << "Existe";
+```
+],
+
+[
+```
+next_permutation(begin, end)
+```
+],
+[$ O(n) $],
+[
+  Genera la siguiente permutación lexicográfica. Caso especial: retorna `false` y deja el rango en la primera permutación (la ordenada) si ya era la última.
+], [
+```
+vector<int> v = {3,2,1};
+bool hay = next_permutation(all(v));
+// hay == false, v = {1,2,3}
+```
+],
+
+[
+```
+max_element(begin, end)
+```
+],
+[$ O(n) $],
+[
+  Retorna iterador al maximo. Para varios maximos, retorna el primero.
+], [
+```
+auto it = max_element(all(v));
+if (it != v.end())
+    cout << *it;
+```
+],
+
+[
+```
+min_element(begin, end)
+```
+],
+[$ O(n) $],
+[
+  Retorna iterador al minimo. Para varios mínimos, retorna el primero.
+], [
+```
+int min_val = *min_element(all(v));
+// asumiendo no vacio
+```
+],
+
+[
+```
+minmax_element(begin, end)
+```
+],
+[$ O(n) $],
+[
+  Retorna `pair<minIt, maxIt>`. Caso especial: con elementos iguales, `min` y `max` pueden apuntar al mismo elemento. Rango vacio -> ambos `end()`.
+], [
+```
+auto [mn, mx] = minmax_element(all(v));
+```
+],
+
+[
+```
+count(begin, end, val)
+```
+],
+[$ O(n) $],
+[
+  Cuenta ocurrencias de `val`.
+], [
+```
+int cnt = count(all(v), 2);
+// puede ser 0
+```
+],
+
+[
+```
+count_if(begin, end, pred)
+```
+],
+[$ O(n) $],
+[
+  Cuenta elementos que cumplen `pred`.
+], [
+```
+int pares = count_if(all(v), [](int x) {
+    return x % 2 == 0;
+});
+```
+],
+
+[
+```
+find(begin, end, val)
+```
+],
+[$ O(n) $],
+[
+  Busca la primera ocurrencia de `val`. Caso especial: si no se encuentra, retorna `end()`.
+], [
+```
+auto it = find(all(v), 3);
+if (it != v.end())
+    cout << "Encontrado en indice " << it - v.begin();
+```
+],
+
+[
+```
+rotate(begin, new_begin, end)
+```
+],
+[$ O(n) $],
+[
+  Rota de forma que `new_begin` pasa a ser el primer elemento. Caso especial: Si `new_begin == begin` o `new_begin == end`, no hay rotación efectiva.
+], [
+```
+vector<int> v = {1,2,3,4,5};
+rotate(all(v), v.begin()+2);
+// {3,4,5,1,2}
+```
+],
+
+[
+```
+unique(begin, end)
+```
+],
+[$ O(n) $],
+[
+  "Compacta" elementos duplicados consecutivos moviendo las primeras ocurrencias al frente. Caso especial: No cambia el tamaño del contenedor. Devuelve iterador al nuevo final lógico; se debe usar `erase` para eliminar los sobrantes.
+], [
+```
+vector<int> v = {1,1,2,2,2,3};
+v.erase(unique(all(v)), v.end());
+// {1,2,3}
+```
+],
+
+[
+```
+merge(b1, e1, b2, e2, out)
+```
+],
+[$ O(n+m) $],
+[
+  Fusiona dos rangos ordenados en uno solo. Caso especial: Si los rangos de entrada no están ordenados, el comportamiento es indefinido.
+], [
+```
+vector<int> a = {1,3,5}, b = {2,4,6};
+vector<int> c(6);
+merge(all(a), all(b), c.begin());
+// {1,2,3,4,5,6}
+```
+],
+
+[
+```
+partition(begin, end, pred)
+```
+],
+[$ O(n) $],
+[
+  Reordena: primero los que cumplen `pred`, luego el resto. Caso especial: No garantiza el orden relativo dentro de cada grupo. Usar `stable_partition` si se necesita estabilidad.
+], [
+```
+auto it = partition(all(v), [](int x) {
+    return x % 2 == 0;
+});
+// pares al frente, impares al final
+```
+],
+)
