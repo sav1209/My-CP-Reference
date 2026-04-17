@@ -1,7 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-const int N = 3e5 + 9, LG = 18;
+// Cantidad de nodos del árbol más un margen para árboles 1-indexados
+const int N = 3e5 + 9;
+// Cantidad máxima de niveles ceil(log2(#nodos))
+const int LG = 18;
 
 // adj[u] = lista de adyacencia del nodo u
 vector<int> adj[N];
