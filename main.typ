@@ -48,7 +48,7 @@
     github-base: "https://github.com/sav1209/My-CP-Reference/blob/main/",
     
     // Si quieres que el PDF tenga colores tenga un estilo monocromatico descomenta la siguiente línea.
-    // use-color: false,                
+    use-color: false,                
 )
 
 // =======================

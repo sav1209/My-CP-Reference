@@ -16,6 +16,25 @@
   source-file: "teoria_de_numeros/sieve_with_basic_optimizations.cpp"
 )
 
+#code-entry(
+  title: "Criba de divisores",
+  tag: "start",
+  source-file: "teoria_de_numeros/criba_divisores.cpp"
+)
+
+#code-entry(
+  title: "Criba del primo más pequeño",
+  tag: "start",
+  source-file: "teoria_de_numeros/criba_primo_mas_pequenio.cpp"
+)
+
+#code-entry(
+  title: "Criba del primo más grande",
+  tag: "start",
+  source-file: "teoria_de_numeros/criba_primo_mas_grande.cpp"
+)
+
+
 == Euclid's Algorithm
 The algorithm is based on the formula
 $

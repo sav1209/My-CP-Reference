@@ -103,18 +103,6 @@ The submatrix sum between rows $a$ and $A$ and columns $b$ and $B$, can thus be 
 $ sum_(i = a)^A sum_(j = b)^B arr[i][j] = prefix[A][B] - prefix[a - 1][B] - prefix[A][b-1] + prefix[a - 1][b - 1] $
 
 
-== Segment tree
-#code-entry(
-  title: "Segment tree",
-  source-file: "estructuras/segment-tree.cpp",
-  range: (6, 41),
-  time: [
-    - $O(n)$ for building
-    - $O(log n)$ for queries and updates
-  ]
-)
-
-
 == Policy-based data structures
 
 The g++ compiler also supports some data structures that are not part of the C++ standard library. Such structures are called policy-based data structures. To use these structures, the following lines must be added to the code:
@@ -142,3 +130,24 @@ This data structure supports all the operations as a set in C++ in addition to t
 
 - `find_by_order(k)`: returns an iterator to the $k$-th smallest element (0-based indexing)
 - `order_of_key(x)`: returns the number of elements in the set that are strictly less than $x$
+
+
+== Segment tree
+#code-entry(
+  title: "Segment tree",
+  source-file: "estructuras/segment-tree.cpp",
+  tag: "segment-tree",
+  time: [
+    - $O(n)$ for building
+    - $O(log n)$ for queries and updates
+  ]
+)
+
+
+== Fenwick tree
+
+#code-entry(
+  title: "Fenwick tree",
+  tag: "bit",
+  source-file: "estructuras/bit.cpp",
+)

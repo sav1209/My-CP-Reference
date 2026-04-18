@@ -50,6 +50,20 @@ A topological sort of a directed acyclic graph is a linear ordering of its verti
     source-file: "graficas/topological_sort_bfs.cpp",
 )
 
+== Detección de ciclos
+
+#code-entry(
+    title: "Implementación para gráficas dirigidas",
+    tag: "start",
+    source-file: "graficas/deteccion_ciclos_dirigidas.cpp"
+)
+
+#code-entry(
+    title: "Implementación para gráficas no dirigidas",
+    tag: "start",
+    source-file: "graficas/deteccion_ciclos_no_dirigidas.cpp"
+)
+
 == Lowest Common Ancestor (LCA)
 
 #code-entry(

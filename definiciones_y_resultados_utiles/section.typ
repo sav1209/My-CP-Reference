@@ -1,4 +1,5 @@
 #import "../lib.typ": *
+#import "@preview/physica:0.9.8": *
 
 // Operador de inverso multiplicativo modular
 #let inv = math.op("inv")
@@ -33,6 +34,13 @@
 ]
 
 - Factorial inverso modular: $display(inv_(p)((x - 1)!) equiv (x dot inv_(p)(x!)) mod p)$
+
+=== Ternas pitagóricas
+$ a^2 + b^2 = c^2 $
+
+Every Pythagorean triple $(a, b, c)$ is generated uniquely by
+$ a = k(m^2 - n^2), b = k(2m n), c = k(m^2 + n^2) $
+where $m$, $n$, and $k$ are positive integers with $m > n$, and with $m$ and $n$ coprime and not both odd.
 
 
 == Combinatoria
@@ -156,3 +164,74 @@ $ D_n = n D_(n - 1) + (-1)^n " para " n >= 1 $
     $15$, $47$, $610$, $9694845$, $32768$, $1307674368000$, $481066515734$,
   ),
 )
+
+== Geometría
+
+=== Triángulos
+
+Longitudes de lados: $a, b, c$
+
+Semiperímetro: $display(p = (a + b + c)/2)$
+
+Área: $A = sqrt(p(p - a)(p - b)(p - c))$
+
+Circunradio: $display(R = (a b c)/(4A))$
+
+Inradio: $display(r = A/p)$
+
+Longitud de la mediana (divide el triángulo en dos triángulos de igual área):
+$m_a = 1/2 sqrt(2b^2 + 2c^2 - a^2)$
+
+Longitud de la bisectriz (divide los ángulos en dos):
+$display(s_a = sqrt(b c [1 - (a/(b + c))^2]))$
+
+Ley de senos: $display((sin alpha)/a = (sin beta)/b = (sin gamma)/c = 1/(2R))$
+
+Ley de cosenos: $display(a^2 = b^2 + c^2 - 2 b c cos alpha)$
+
+Ley de tangentes: $display((a + b)/(a - b) = tan((alpha + beta)/2) / tan((alpha - beta)/2))$
+
+
+=== Producto punto
+$ vb(a) vb(b) = |vb(a)| |vb(b)| cos theta $
+
+==== Propiedades
+
+1. Norma al cuadrado de $vb(a)$:
+  $ |vb(a)|^2 = vb(a) dot vb(a) $
+
+2. Longitud de $vb(a)$:
+  $ |vb(a)| = sqrt(vb(a) dot vb(a)) $
+
+3. Proyección escalar de $vb(a)$ sobre $vb(b)$:
+  $ (vb(a) dot vb(b))/|vb(b)| $
+
+4. Ángulo entre vectores:
+  $ arccos((vb(a) dot vb(b))/(|vb(a)| |vb(b)|)) $
+
+5. A partir del punto anterior:
+  - El producto punto es positivo si el ángulo entre ellos es agudo.
+  - Es negativo si el ángulo es obtuso.
+  - Es cero si son ortogonales (forman un ángulo recto).
+
+
+== Otras
+=== Sumas
+
+$ 
+c^a + c^(a + 1) + dots.c + c^b &= (c^(b + 1) - c^a)/(c - 1), c != 1\
+1 + 2 + 3 + dots.c + n &= (n(n + 1))/2\
+1^2 + 2^2 + 3^2 + dots.c + n^2 &= (n(2n + 1)(n + 1))/6\
+1^3 + 2^3 + 3^3 + dots.c + n^3 &= (n^2 (n + 1)^2)/4\
+1^4 + 2^4 + 3^4 + dots.c + n^4 &= (n(n + 1)(2n + 1)(3n^2 + 3n - 1))/30
+$
+
+=== Series
+
+$
+e^x &= 1 + x + x^2/2! + x^3/3! + dots.c, -oo < x < oo\
+ln(1 + x) &= x - x^2/2 + x^3/3 - x^4/4 + dots.c, -1 < x <= 1\
+sqrt(1 + x) &= 1 + x/2 - x^2/8 + (2x^3)/32 - (5x^4)/128 + dots.c, -1 <= x <= 1\
+sin x &= x - x^3/3! + x^5/5! - x^7/7! + dots.c, -oo < x < oo\
+cos x &= 1 - x^2/2! + x^4/4! - x^6/6! + dots.c, -oo < x < oo
+$

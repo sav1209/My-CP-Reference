@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+// snippet: segment-tree
 const int MAXN = 100000;
 
 int n, t[4*MAXN];
@@ -39,3 +39,4 @@ void update(int v, int tl, int tr, int pos, int new_val) {
         t[v] = t[v*2] + t[v*2+1];
     }
 }
+// snippet: end
