@@ -112,4 +112,4 @@
 #include "manipulacion_de_bits/section.typ"
 #include "matematicas/section.typ"
 #include "definiciones_y_resultados_utiles/section.typ"
-#include "utilidades/section.typ"
+#include "otros/section.typ"

@@ -1,9 +1,16 @@
 #import "../lib.typ": *
 
+
+= Otros
+
+== Estructura para fracciones
+#code-entry(
+  title: "Fracción",
+  description: "Estructura para representar fracciones con operaciones básicas.",
+  source-file: "otros/fraccion.cpp"
+)
+
 #set page(columns: 1)
-
-= Utilidades
-
 == Funciones útiles para strings en C++
 
 #codly(enabled: false)

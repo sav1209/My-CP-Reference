@@ -18,6 +18,7 @@
 
 #code-entry(
   title: "Criba de divisores",
+  description: [Produce una criba para obtener la suma de todos los divisores de cada número en $[1, n]$ y otra para dichos divisores.],
   tag: "start",
   source-file: "teoria_de_numeros/criba_divisores.cpp"
 )
