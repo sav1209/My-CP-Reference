@@ -1,42 +1,57 @@
 #include <bits/stdc++.h>
 using namespace std;
-// snippet: segment-tree
-const int MAXN = 100000;
 
-int n, t[4*MAXN];
+using ll = long long;
 
-void build(int a[], int v, int tl, int tr) {
-    if (tl == tr) {
-        t[v] = a[tl];
-    } else {
-        int tm = (tl + tr) / 2;
-        build(a, v*2, tl, tm);
-        build(a, v*2+1, tm+1, tr);
-        t[v] = t[v*2] + t[v*2+1];
+const int MAXN = 2e5;
+ll a[MAXN];
+struct segtree {
+    int n;
+    vector<ll> tree;
+
+    segtree(int n) : n(n) {
+        tree.resize(4 * n);
+        build(1, 0, n - 1);
     }
-}
 
-int sum(int v, int tl, int tr, int l, int r) {
-    if (l > r) 
-        return 0;
-    if (l == tl && r == tr) {
-        return t[v];
-    }
-    int tm = (tl + tr) / 2;
-    return sum(v*2, tl, tm, l, min(r, tm))
-           + sum(v*2+1, tm+1, tr, max(l, tm+1), r);
-}
+    void build(int v, int lx, int rx) {
+        if (lx == rx) {
+            tree[v] = a[lx];
+            return;
+        }
 
-void update(int v, int tl, int tr, int pos, int new_val) {
-    if (tl == tr) {
-        t[v] = new_val;
-    } else {
-        int tm = (tl + tr) / 2;
-        if (pos <= tm)
-            update(v*2, tl, tm, pos, new_val);
-        else
-            update(v*2+1, tm+1, tr, pos, new_val);
-        t[v] = t[v*2] + t[v*2+1];
+        int m = (lx + rx) / 2;
+        build(2 * v, lx, m);
+        build(2 * v + 1, m + 1, rx);
+        tree[v] = tree[2 * v] + tree[2 * v + 1];
     }
-}
-// snippet: end
+
+    void update(int idx, int new_val, int v, int lx, int rx) {
+        if (lx == rx) {
+            tree[v] = a[idx] = new_val;
+            return;
+        }
+
+        int m = (lx + rx) / 2;
+        if (idx <= m) update(idx, new_val, 2 * v, lx, m);
+        else          update(idx, new_val, 2 * v + 1, m + 1, rx);
+        tree[v] = tree[2 * v] + tree[2 * v + 1];
+    }
+
+    ll query(int l, int r, int v, int lx, int rx) {
+        if (l > rx or r < lx or l > r) return 0;
+        if (l <= lx and rx <= r) return tree[v];
+
+        int m = (lx + rx) / 2;
+        return    query(l, r, 2 * v, lx, m)
+                + query(l, r, 2 * v + 1, m + 1, rx);
+    }
+
+    void update(int pos, int new_val) {
+        update(pos, new_val, 1, 0, n - 1);
+    }
+
+    ll query(int l, int r) {
+        return query(l, r, 1, 0, n - 1);
+    }
+};
