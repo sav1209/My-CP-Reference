@@ -6,9 +6,10 @@
 // ==========================================
 #set text(
     size: 10pt,
-    font: "Fira Sans",
+    // font: "IBM Plex Serif",
     lang: "es",
     region: "mx",
+    // weight: "light",
 )
 
 // ===================================================
@@ -19,14 +20,18 @@
     tab-size: 4,
 )
 // Fuente para código (bloques y línea).
-#show raw: set text(font: "FiraCode Nerd Font", weight: "medium")
+#show raw: set text(
+    font: "Roboto Mono",
+)
 // Configura la fuente para que el código en línea (no bloques) aparezca en semibold (más grueso que en bloques).
-#show raw.where(block: false): set text(weight: "semibold")
+#show raw.where(block: false): set text(weight: "medium")
 
 // ==========================================================
 //  CONFIGURACIÓN DE LA FUENTE PARA LAS FÓRMULAS MATEMÁTICAS
 // ==========================================================
-#show math.equation: set text(font: "Fira Math")
+// #show math.equation: set text(
+//     font: "IBM Plex Math",
+// )
 #set math.cases(gap: 0.5em)
 
 
@@ -35,7 +40,6 @@
 // ==============================================
 #set document(
     title: "Reference",
-    author: "sav1209",
 )
 
 
@@ -43,9 +47,11 @@
 // ==================================
 //  APLICA LA PLANTILLA AL DOCUMENTO
 // ==================================
+
+#let url-repo = "https://github.com/sav1209/My-CP-Reference/blob/main/"
 #show: reference.with(
     // URL base de GitHub para que la plantilla pueda generar enlaces dentro del PDF a tu repositorio (Opcional).
-    github-base: "https://github.com/sav1209/My-CP-Reference/blob/main/",
+    github-base: url-repo,
     
     // Si quieres que el PDF tenga colores tenga un estilo monocromatico descomenta la siguiente línea.
     use-color: false,                
@@ -54,41 +60,48 @@
 // =======================
 //  TÍTULO PERSONALIZADA
 // =======================
-#align(center)[
+#grid(
+    columns: 1fr,
+    rows: 1fr,
+)[
+    #set align(center)
+    #set text(font: "Montserrat")
+    #let qr-repo = link(url-repo, qrcode(url-repo))
+
     #stack(
         text(
             size: 50pt,
-            weight: "black",
-            fill: gradient.linear(
-                rgb("#00084f"),
-                rgb("#001e78"),
-                rgb("#0034a6"),
-                rgb("#0049d8"),
-                rgb("#005eff")
-            ),
-            "REFERENCE",
-        ),
+            weight: 900,
+            tracking: -1.5pt,
+            fill: gradient.linear(green, teal, angle: 45deg),
+        )[REFERENCE],
         v(15pt),
         text(
             size: 15pt,
-            fill: subtext0,
-            weight: "semibold",
-            smallcaps("Gatitas Tapabaños Nacatlán")
-        ),
-        v(5pt),
-        text(
-            size: 10pt,
+            weight: 600,
+            tracking: 2.5pt,
             fill: subtext0
-        )[
-            Última actualización: #datetime.today().display()
-        ],
-        v(0.75cm),
-        link(
-            "https://github.com/sav1209/My-CP-Reference",
-            qrcode("https://github.com/sav1209/My-CP-Reference")
+        )[#smallcaps[Gatitas Tapabaños Nacatlán]],
+        v(15pt),
+        box(
+            fill: white,
+            stroke: 1pt + surface2,
+            radius: 12pt,
+            inset: 14pt,
+            qr-repo
         ),
-        v(0.75cm),
-        image("assets/images/shrek.png", width: 70%)
+        v(1fr),
+        image("assets/images/shrek.png", width: 8cm),
+        v(1fr),
+        box(
+            fill: mantle,
+            radius: 999pt,
+            inset: (x: 14pt, y: 6pt)
+        )[
+            #text(size: 9pt, fill: subtext1, font: "JetBrains Mono")[
+            Última actualización: #datetime.today().display()
+            ]
+        ]
     )
 ]
 
@@ -96,12 +109,12 @@
 //  TABLA DE CONTENIDOS
 // =====================
 #show outline.entry.where(level: 1): strong
-#outline(depth: 2)
+#outline(depth: 3)
 
 // =====================
 //  SECCIONES TEMATICAS
 // =====================
-#include "setup/section.typ"
+#include "cpp/section.typ"
 #include "estructuras/section.typ"
 #include "ordenamiento_busqueda/section.typ"
 #include "graficas/section.typ"
@@ -111,5 +124,5 @@
 #include "strings/section.typ"
 #include "manipulacion_de_bits/section.typ"
 #include "matematicas/section.typ"
-#include "definiciones_y_resultados_utiles/section.typ"
+#include "teoria/section.typ"
 #include "otros/section.typ"

@@ -10,6 +10,9 @@
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.10": *
 
+// Hydra is a Typst package allowing you to easily display the heading like elements anywhere in your document.
+#import "@preview/hydra:0.6.3": hydra, anchor
+
 // Global config consumed by `code-entry` when no explicit github-base is passed.
 #let code-entry-github-base-state = state("code-entry-github-base", none)
 #let code-entry-use-color-state = state("code-entry-use-color", true)
@@ -17,8 +20,6 @@
 // Reusable Font Awesome icon helper and GitHub-link icon.
 #let fa-icon(icon, ..args) = text(
   font: "Font Awesome 7 Free",
-  size: 1em,
-  weight: "regular",
   icon,
   ..args,
 )
@@ -297,20 +298,55 @@
 
   // Paper size
   set page(
-    margin: (bottom: 1.25cm, rest: 0.75cm),
+    margin: (top: 1cm, bottom: 1.25cm, x: 0.6cm),
     paper: "us-letter",
     numbering: "1",
     flipped: true,
     columns: 2,
     fill: none,
+    header: anchor(),
     footer: context [
       #set text(
-        size: 15pt,
-        weight: "semibold",
-        number-type: "old-style",
+        font: "IBM Plex Sans",
+        size: 12pt,
+        weight: "black",
+        fill: text-color,
       )
+      #let sec = hydra(1)
+
+      #if sec != none [
+        #box(
+          width: 6.75cm,
+          height: 0.9cm,
+          fill: base,
+          radius: (top-right: 10pt),
+          inset: (x: 4pt, y: 0pt),
+          outset: (left: 0.6cm),
+          stroke: (
+            right: 1pt + text-color,
+            top:   1pt + text-color
+          )
+        )[
+          #set align(horizon+left)
+          #sec
+        ]
+      ]
       #h(1fr)
-      #counter(page).display("1")
+      #box(
+        width: 3em,
+        height: 0.9cm,
+        fill: base,
+        radius: (top-left: 10pt),
+        inset: (x: 4pt, y: 0pt),
+        outset: (right: 0.6cm),
+        stroke: (
+          left: 1pt + text-color,
+          top:  1pt + text-color
+        ),
+      )[
+        #set align(horizon+right)
+        #counter(page).display("1")
+      ]
     ],
   )
 
@@ -340,7 +376,9 @@
   // Headings
   set heading(numbering: "1.")
   show heading: it => {
+    set text(font: "IBM Plex Sans")
     show math.equation: math.bold
+    show raw: set text(weight: "extrabold")
     it
   }
   show heading.where(level: 1): set text(
