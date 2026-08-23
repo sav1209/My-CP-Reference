@@ -25,7 +25,7 @@ ll KMP(const vll& pat, const vll& txt) {
     }
     return matches;
 }
-
+// snippet: end
 // Bordes de un string (usando su phi)
 // Devuelve todas las longitudes de bordes no triviales, de mayor a menor
 // (borde = prefijo que también es sufijo, distinto del string completo)
