@@ -43,5 +43,5 @@
   description: "Dado phi de un string, cnt[L] = cuántas veces aparece el prefijo de longitud L como substring dentro de todo el string (incluyendo su propia ocurrencia como prefijo). Se calcula acumulando conteos por valor de phi y propagándolos hacia abajo en la cadena de bordes.",
   lang: "cpp",
   tag: "kmp-prefix-count",
-  source-file: "strings/kmp.cpp",
+  source-file: "strings/Occurrences_KMP.cpp",
 )
