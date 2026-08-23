@@ -34,7 +34,7 @@
   description: "Dado phi de un string, devuelve todas las longitudes de bordes no triviales (prefijo = sufijo, distinto del string completo), de mayor a menor. Se obtiene siguiendo la cadena phi[n-1], phi[phi[n-1]-1], ... hasta llegar a 0.",
   lang: "cpp",
   tag: "kmp-borders",
-  source-file: "strings/kmp.cpp",
+  source-file: "strings/Borders_KMP.cpp",
 )
 #code-entry(
   title: "Conteo de ocurrencias de cada prefijo",
