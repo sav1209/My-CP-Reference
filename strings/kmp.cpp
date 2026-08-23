@@ -26,34 +26,3 @@ ll KMP(const vll& pat, const vll& txt) {
     return matches;
 }
 // snippet: end
-// Bordes de un string (usando su phi)
-// Devuelve todas las longitudes de bordes no triviales, de mayor a menor
-// (borde = prefijo que también es sufijo, distinto del string completo)
-// Complejidad: O(n) en el peor caso (cadena de bordes)
-// snippet: kmp-borders
-vll getBorders(const vll& phi) {
-    ll n = phi.size();
-    vll borders;
-    for (ll i = phi[n - 1]; i; i = phi[i - 1])
-        borders.push_back(i);
-    return borders;
-}
-// snippet: end
-
-// Conteo de ocurrencias de cada prefijo como substring de pat
-// cnt[L] = cuántas veces aparece pat[0..L-1] dentro de todo pat
-// (incluye la ocurrencia como el propio prefijo)
-// Complejidad: O(n)
-// snippet: kmp-prefix-count
-vll countPrefixOccurrences(const vll& phi) {
-    ll n = phi.size();
-    vll cnt(n + 1, 0);
-    for (ll i = 0; i < n; i++)
-        cnt[phi[i]]++;
-    for (ll i = n - 1; i > 0; i--)
-        cnt[phi[i - 1]] += cnt[i];
-    for (ll i = 0; i <= n; i++)
-        cnt[i]++;
-    return cnt;
-}
-// snippet: end
