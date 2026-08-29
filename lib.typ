@@ -245,7 +245,7 @@
       radius: 5pt,
       stroke: 0.5pt + card-border,
       clip: true,       // necessary for radius to clip accent-bar
-      breakable: false, // card doesn't break across pages
+      breakable: true, // card doesn't break across pages
       above: 1em,
       below: 0pt,       // code block attaches flush to the card
       grid(columns: 100%, ..parts),
@@ -312,37 +312,11 @@
         weight: "black",
         fill: text-color,
       )
-      #let sec = hydra(1)
-
-      #if sec != none [
-        #box(
-          width: 6.75cm,
-          height: 0.9cm,
-          fill: base,
-          radius: (top-right: 10pt),
-          inset: (x: 4pt, y: 0pt),
-          outset: (left: 0.6cm),
-          stroke: (
-            right: 1pt + text-color,
-            top:   1pt + text-color
-          )
-        )[
-          #set align(horizon+left)
-          #sec
-        ]
-      ]
+      
       #h(1fr)
       #box(
         width: 3em,
         height: 0.9cm,
-        fill: base,
-        radius: (top-left: 10pt),
-        inset: (x: 4pt, y: 0pt),
-        outset: (right: 0.6cm),
-        stroke: (
-          left: 1pt + text-color,
-          top:  1pt + text-color
-        ),
       )[
         #set align(horizon+right)
         #counter(page).display("1")

@@ -1,3 +1,15 @@
+// BIT
+//
+// BIT de soma 0-based
+// 
+// upper_bound(x) retorna o menor p tal que pref(p) > x 
+//
+// Complexidades:
+// build - O(n)
+// update - O(log(n))
+// query - O(log(n))
+// upper_bound - O(log(n))
+
 struct Bit {
 	int n;
 	vector<ll> bit;
@@ -18,11 +30,11 @@ struct Bit {
 		return ret;
 	}
 	ll query(int l, int r) {  // soma [l, r]
-		return pref(r) - pref(l - 1);
+		return pref(r) - pref(l - 1); 
 	}
 	int upper_bound(ll x) {
 		int p = 0;
-		for (int i = __lg(n); i+1; i--)
+		for (int i = __lg(n); i+1; i--) 
 			if (p + (1<<i) <= n and bit[p + (1<<i)] <= x)
 				x -= bit[p += (1 << i)];
 		return p;
