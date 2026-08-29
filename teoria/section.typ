@@ -331,3 +331,137 @@ sqrt(1 + x) &= 1 + x/2 - x^2/8 + (2x^3)/32 - (5x^4)/128 + dots.c, -1 <= x <= 1\
 sin x &= x - x^3/3! + x^5/5! - x^7/7! + dots.c, -oo < x < oo\
 cos x &= 1 - x^2/2! + x^4/4! - x^6/6! + dots.c, -oo < x < oo
 $
+
+
+== DP
+
+- *Divide and Conquer Optimization:* Utilizada en problemas del tipo:
+
+  $ "dp"[i][j] = min_(k<j) { "dp"[i-1][k] + C[k][j] } $
+
+  donde el objetivo es dividir el subsegmento hasta $j$ en $i$ segmentos con algún costo. La optimización es válida si:
+
+  $ A[i][j] <= A[i][j+1] $
+
+  donde $A[i][j]$ es el valor de $k$ que minimiza la transición.
+
+- *Knuth Optimization:* Aplicable cuando:
+
+  $ "dp"[i][j] = min_(i<k<j) { "dp"[i][k] + "dp"[k][j] } + C[i][j] $
+
+  y se satisface la condición de monotonía:
+
+  $ A[i][j-1] <= A[i][j] <= A[i+1][j] $
+
+  con $A[i][j]$ siendo el índice $k$ que minimiza la transición.
+
+- *Slope Trick:* Técnica usada para manejar funciones lineales por partes y convexas. La función se representa mediante puntos donde la derivada cambia, que pueden manipularse con `multiset` o `heap`. Útil para mantener el mínimo de funciones acumuladas en forma de envolventes convexas.
+
+- *Otras Técnicas y Trucos Importantes:*
+  - *FFT (Fast Fourier Transform):* Convolución eficiente de vectores.
+  - *CHT (Convex Hull Trick):* Optimización para DP con funciones lineales y monotonía.
+  - *Aliens Trick:* Técnica para binarizar el costo en problemas de optimización paramétrica (generalmente en problemas con límite en el número de grupos/segmentos).
+  - *Bitset:* Utilizado para optimizaciones de espacio y tiempo en DP de subconjuntos o sumas parciales, especialmente en problemas de mochila.
+
+
+== Geometría
+
+- *Fórmula de Euler:* En un grafo planar o poliedro convexo, tenemos:
+
+  $ V - E + F = 2 $
+
+  donde $V$ es el número de vértices, $E$ el número de aristas y $F$ el número de caras.
+
+- *Teorema de Pick:* Para polígonos con vértices en coordenadas enteras:
+
+  $ "Área" = i + b/2 - 1 $
+
+  donde $i$ es el número de puntos interiores y $b$ el número de puntos sobre el perímetro.
+
+- *Teorema de las Dos Orejas (Two Ears Theorem):* Todo polígono simple con más de tres vértices posee al menos dos "orejas" — vértices que pueden eliminarse sin generar intersecciones. La eliminación repetida de las orejas resulta en una triangulación del polígono.
+
+- *Incentro de un Triángulo:* Es el punto de intersección de las bisectrices internas y centro de la circunferencia inscrita. Si $a$, $b$ y $c$ son las longitudes de los lados opuestos a los vértices $A(X_a, Y_a)$, $B(X_b, Y_b)$ y $C(X_c, Y_c)$, entonces el incentro $(X, Y)$ está dado por:
+
+  $ X = (a X_a + b X_b + c X_c)/(a+b+c), quad Y = (a Y_a + b Y_b + c Y_c)/(a+b+c) $
+
+- *Triangulación de Delaunay:* Una triangulación de un conjunto de puntos en el plano tal que ningún punto está dentro del círculo circunscrito de ningún triángulo. Esta triangulación:
+  - Maximiza el ángulo mínimo entre todos los triángulos.
+  - Contiene el árbol generador mínimo (MST) euclidiano como subconjunto.
+
+- *Fórmula de Brahmagupta:* Para calcular el área de un cuadrilátero cíclico (todos los vértices sobre una circunferencia), con lados $a$, $b$, $c$ y $d$:
+
+  $ s = (a+b+c+d)/2, quad "Área" = sqrt((s-a)(s-b)(s-c)(s-d)) $
+
+  Si $d = 0$ (es decir, un triángulo), se reduce a la fórmula de Herón:
+
+  $ "Área" = sqrt((s-a)(s-b)(s-c)s) $
+
+== Grafos
+
+- *Fórmula de Euler (para grafos planares):*
+
+  $ V - E + F = 2 $
+
+  donde $V$ es el número de vértices, $E$ el número de aristas y $F$ el número de caras.
+
+- *Lema del Apretón de Manos (Handshaking Lemma):* El número de vértices con grado impar en un grafo es par.
+
+- *Teorema de Kirchhoff (conteo de árboles generadores):*
+  Arme la matriz $M$ tal que:
+
+  $ M_(i,i) = "deg"(i), quad M_(i,j) = cases(
+    -1 "si existe la arista " i-j,
+    0 "en caso contrario"
+  ) $
+
+  El número de árboles generadores (spanning trees) es el determinante de cualquier cofactor de $M$ (elimine una fila y una columna).
+
+- *Condiciones para Camino Hamiltoniano:*
+  - *Teorema de Dirac:* Si todos los vértices tienen grado $>= n/2$, el grafo contiene un camino Hamiltoniano.
+  - *Teorema de Ore:* Si para todo par de vértices no adyacentes $u$ y $v$ se cumple $"deg"(u) + "deg"(v) >= n$, entonces el grafo posee un camino Hamiltoniano.
+
+- *Algoritmo de Borůvka:* Mientras el grafo no sea conexo, para cada componente conexa elija la arista de menor costo que sale de ella. Esta técnica construye el árbol generador mínimo (MST).
+
+- *Árboles:*
+  - Existen $C_n$ árboles binarios con $n$ vértices ($C_n$ es el $n$-ésimo número de Catalan).
+  - Existen $C_(n-1)$ árboles enraizados con $n$ vértices.
+  - *Fórmula de Cayley:* Existen $n^(n-2)$ árboles con vértices etiquetados de $1$ a $n$.
+  - *Código de Prüfer:* Elimine iterativamente la hoja con menor etiqueta y agregue la etiqueta del vecino al código, hasta que queden dos vértices.
+
+- *Flujo en Redes:*
+  - *Corte Mínimo:* Después de ejecutar el algoritmo de flujo máximo, un vértice $u$ está del lado de la fuente si $"nivel"[u] != -1$.
+
+  - *Máximo de Caminos Disjuntos:*
+    - *Aristas disjuntas:* Use flujo máximo con capacidades iguales a 1 en todas las aristas.
+    - *Vértices disjuntos:* Divida cada vértice $v$ en $v_("in")$ y $v_("out")$, conectados por una arista de capacidad 1. Las aristas que entran van hacia $v_("in")$ y las que salen, salen de $v_("out")$.
+
+  - *Teorema de König:* En un grafo bipartido:
+
+    $ "Cobertura mínima de vértices" = "Matching máximo" $
+
+    El complemento de la cobertura mínima de vértices es el conjunto independiente máximo.
+
+  - *Coberturas:*
+    - *Vertex Cover mínimo:* Los vértices de la partición $X$ que *no* están del lado de la fuente en el corte mínimo, y los vértices de la partición $Y$ que *sí* están del lado de la fuente.
+    - *Independent Set máximo:* Complemento de la cobertura mínima de vértices.
+    - *Edge Cover mínimo:* Es $N - "matching"$, tomando las aristas del matching más las aristas restantes necesarias para cubrir los vértices no cubiertos.
+
+  - *Path Cover:*
+    - *Node-disjoint path cover mínimo:* Duplique los vértices en tipo $A$ y tipo $B$ y cree un grafo bipartido con aristas de $A -> B$. El path cover es $N - "matching"$.
+    - *General path cover mínimo:* Cree aristas de $A -> B$ siempre que exista un camino de $A$ a $B$ en el grafo. El resultado también es $N - "matching"$.
+
+  - *Teorema de Dilworth:* El path cover mínimo en un grafo dirigido acíclico es igual a la *antichain máxima* (conjunto de vértices sin caminos entre ellos).
+
+  - *Teorema del Matrimonio de Hall:* Un grafo bipartido posee un matching completo del lado $X$ si:
+
+    $ forall W subset.eq X, quad |W| <= |"vecinos"(W)| $
+
+  - *Flujo Viable con Capacidades Inferiores y Superiores:* Para una red sin fuente ni sumidero:
+    - Sustituya la capacidad de cada arista por $c_("upper") - c_("lower")$.
+    - Cree una nueva fuente $S$ y un sumidero $T$.
+    - Para cada vértice $v$, calcule:
+
+      $ M[v] = sum_("aristas entrantes") c_("lower") - sum_("aristas salientes") c_("lower") $
+
+    - Si $M[v] > 0$, agregue la arista $(S, v)$ con capacidad $M[v]$; si $M[v] < 0$, agregue $(v, T)$ con capacidad $-M[v]$.
+    - Si todas las aristas de $S$ están saturadas en el flujo máximo, entonces existe un flujo viable. El flujo viable final es el flujo calculado más los valores de $c_("lower")$.
