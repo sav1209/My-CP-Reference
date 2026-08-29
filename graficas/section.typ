@@ -83,6 +83,7 @@ A topological sort of a directed acyclic graph is a linear ordering of its verti
     source-file: "graficas/topological_sort_bfs.cpp",
 )
 
+
 == Detección de ciclos
 
 #code-entry(
@@ -96,6 +97,24 @@ A topological sort of a directed acyclic graph is a linear ordering of its verti
     tag: "start",
     source-file: "graficas/deteccion_ciclos_no_dirigidas.cpp"
 )
+
+== Detección de Ciclo (Tortoise and Hare)
+#code-entry(
+  time: $O(mu + lambda)$,
+  space: $O(1)$,
+  description: [
+    Algoritmo de Floyd (*Tortoise and Hare*) para detectar el ciclo de una función iterada $f$ aplicada sobre un valor inicial `f0`, usando únicamente $O(1)$ de memoria. Retorna un par `{st, len}`: `st` es la cantidad de pasos necesarios desde `f0` hasta el inicio del ciclo (la "cola"), y `len` es la longitud del propio ciclo. La complejidad temporal es lineal respecto a cuánto hay que avanzar para empezar a ciclar (usualmente denotado $mu + lambda$, donde $mu$ es la longitud de la cola y $lambda$ la del ciclo).
+
+    Funcionamiento (`find_cycle()`), en tres fases:
+    - *Detección de colisión*: se avanza `tort` (tortuga) un paso a la vez y `hare` (liebre) dos pasos a la vez, contando `t`, hasta que ambos coincidan; esto garantiza que existe un ciclo y que se encuentran dentro de él.
+    - *Localización del inicio del ciclo*: se reinicia `tort` a `f0` y se avanza tanto `tort` como `hare` un paso a la vez simultáneamente; el punto donde vuelven a coincidir es exactamente el inicio del ciclo, y la cantidad de pasos dados (`st`) es la longitud de la cola.
+    - *Cálculo de la longitud del ciclo*: desde el punto de encuentro (`tort`, ya en el inicio del ciclo), se avanza `hare` repetidamente hasta volver a `tort`, contando los pasos (`len`), lo cual da la longitud exacta del ciclo.
+
+    Es útil en problemas sobre *functional graphs* o secuencias generadas iterativamente (por ejemplo, secuencias pseudoaleatorias, iteración de funciones numéricas) donde se necesita conocer la estructura de "cola + ciclo" sin poder almacenar todo el historial visitado, a diferencia de un enfoque con `set`/`map` que usaría $O(mu + lambda)$ de memoria.
+  ],
+  source-file: "graficas/tortoise_hare.cpp",
+)
+
 
 == Lowest Common Ancestor (LCA)
 
