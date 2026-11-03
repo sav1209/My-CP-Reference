@@ -139,6 +139,23 @@ A topological sort of a directed acyclic graph is a linear ordering of its verti
   source-file: "graficas/centro_arvore.cpp",
 )
 
+== Euler Tour (Intervalos de Entrada/Salida)
+#code-entry(
+  time: $O(n)$,
+  space: $O(n)$,
+  description: [
+    Recorre un árbol mediante DFS asignando a cada vértice un intervalo `[start[v], end[v])` que representa el rango de tiempos (marcados por un contador global `timer`) durante el cual `v` y toda su sub-árbol permanecen "activos" en el recorrido. Esta técnica traduce consultas sobre sub-árboles a consultas sobre *rangos contiguos* de un arreglo, permitiendo resolverlas con estructuras de datos de rango como *Segment Tree* o *Fenwick Tree* (BIT).
+
+    Funcionamiento (`euler_tour(at, prev)`):
+    - Al entrar al vértice `at`, se registra `start[at] = timer` y se incrementa `timer`, marcando el inicio de su intervalo.
+    - Se recorre recursivamente cada vecino `n` de `at` (excluyendo `prev`, el padre, para no retroceder en un árbol no dirigido representado como grafo).
+    - Al salir de `at` (tras procesar todos sus hijos), se registra `end[at] = timer`, marcando el final de su intervalo. Todo vértice `u` que sea descendiente de `at` cumplirá $"start"["at"] <= "start"[u] < "end"["at"]$, propiedad clave que permite identificar la sub-árbol de `at` como el rango contiguo $["start"["at"], "end"["at"])$.
+
+    Es la base para técnicas como *Heavy-Light Decomposition*, consultas de subárbol con *Segment Tree* / *BIT* (por ejemplo, "sumar $x$ a todo un subárbol" o "consultar el valor de un vértice"), y el cálculo de *Lowest Common Ancestor* (LCA) mediante *Sparse Table* sobre el recorrido de Euler.
+  ],
+  source-file: "graficas/euler_tour.cpp",
+)
+
 == Functional Graph (Binary Lifting sobre Ciclos)
 #code-entry(
   time: $"build": O(n) quad f_k: O(log(min(n,k))) quad "path": O(log(min(n,k)))$,
