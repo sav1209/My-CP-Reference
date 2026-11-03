@@ -1,42 +1,23 @@
-// BIT
-//
-// BIT de soma 0-based
-// 
-// upper_bound(x) retorna o menor p tal que pref(p) > x 
-//
-// Complexidades:
-// build - O(n)
-// update - O(log(n))
-// query - O(log(n))
-// upper_bound - O(log(n))
-
-struct Bit {
-	int n;
-	vector<ll> bit;
-	Bit(int _n=0) : n(_n), bit(n + 1) {}
-	Bit(vector<int>& v) : n(v.size()), bit(n + 1) {
-		for (int i = 1; i <= n; i++) {
-			bit[i] += v[i - 1];
-			int j = i + (i & -i);
-			if (j <= n) bit[j] += bit[i];
-		}
-	}
-	void update(int i, ll x) { // soma x na posicao i
-		for (i++; i <= n; i += i & -i) bit[i] += x;
-	}
-	ll pref(int i) { // soma [0, i]
-		ll ret = 0;
-		for (i++; i; i -= i & -i) ret += bit[i];
-		return ret;
-	}
-	ll query(int l, int r) {  // soma [l, r]
-		return pref(r) - pref(l - 1); 
-	}
-	int upper_bound(ll x) {
-		int p = 0;
-		for (int i = __lg(n); i+1; i--) 
-			if (p + (1<<i) <= n and bit[p + (1<<i)] <= x)
-				x -= bit[p += (1 << i)];
-		return p;
-	}
+// BIT con actualización de rango y suma de rango. 0-indexado.
+// update(l,r,x): a[l..r] += x. query(l,r): suma de a[l..r]. O(log n).
+// Úsese cuando: "suma x a un rango" y "suma de un rango" intercalados.
+struct RBit {
+    int n; vector<ll> b1, b2;
+    RBit(int n = 0) : n(n), b1(n + 2), b2(n + 2) {}
+    void add(vector<ll>& b, int i, ll x) {
+        for (i++; i <= n; i += i & -i) b[i] += x;
+    }
+    ll get(vector<ll>& b, int i) {
+        ll r = 0;
+        for (i++; i > 0; i -= i & -i) r += b[i];
+        return r;
+    }
+    void update(int l, int r, ll x) {
+        add(b1, l, x);     add(b1, r + 1, -x);
+        add(b2, l, x * l); add(b2, r + 1, -x * (r + 1));
+    }
+    ll pref(int i) { return get(b1, i) * (i + 1) - get(b2, i); }
+    ll query(int l, int r) { return pref(r) - pref(l - 1); }
 };
+// Ej.: RBit b(3); b.update(0,2,5); b.update(1,1,5);
+//      b.query(1,1) == 10; b.query(0,2) == 20

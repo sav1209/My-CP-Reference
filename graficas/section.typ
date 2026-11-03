@@ -178,6 +178,22 @@ A topological sort of a directed acyclic graph is a linear ordering of its verti
   ],
   source-file: "graficas/functional_graph.cpp",
 )
+== Dijkstra
+#code-entry(
+  title: "Dijkstra (camino mínimo, pesos no negativos)",
+  time: $O((n + m) log n)$,
+  space: $O(n + m)$,
+  description: [
+    Distancias mínimas desde un origen `s` con pesos $>= 0$. `dist[v] = INF`
+    si `v` no es alcanzable. Se ignoran las entradas viejas de la cola con
+    `d > dist[u]`.
+
+    *Úsese cuando:* piden el camino mínimo y todos los pesos son no negativos.
+    Con pesos negativos usar Bellman-Ford o Johnson.
+  ],
+  tag: "dijkstra",
+  source-file: "graficas/dijkstra.cpp",
+)
 
 == Floyd-Warshall
 #code-entry(
